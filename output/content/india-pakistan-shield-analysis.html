@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Operation Sindoor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues -->
+    <!-- Application Structure Plan: The infographic tells a linear story designed for maximum impact and clarity. It starts with a high-level hook (key stats), explains the cause (Pahalgam attack), then moves to the core analysis: a visual, side-by-side comparison of the two nations' air defense systems. This is followed by a data-driven deep dive into the specific technological failures (HQ-9 vs S-400, Drone failures). The narrative concludes with the strategic fallout. This structure was chosen to guide the user from the what (the result) to the why (the technological and strategic reasons), making a complex conflict easy to understand. -->
+    <!-- Visualization & Content Choices: 1. Key Stats (Goal: Inform): Big Number text visualization for immediate impact. Justification: Grabs user attention with the most critical outcomes. Method: HTML/CSS. 2. Air Defense Breakdown (Goal: Organize/Compare): A structured HTML/CSS diagram with color coding. Justification: Clearly illustrates the complex, layered nature of India's defense versus the simpler, failed Pakistani system. Method: HTML/CSS, NO SVG/Mermaid. 3. S-400 vs HQ-9 (Goal: Compare): A Chart.js horizontal bar chart. Justification: Provides a direct, quantitative comparison of the systems' vast capability differences, which is central to the report's thesis. Library: Chart.js/Canvas, NO SVG. 4. Drone Unreliability (Goal: Organize): A styled HTML list. Justification: Best format for presenting qualitative, descriptive failure data across multiple systems. Method: HTML/CSS, NO SVG. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #F0F5FF;
+            font-family: 'Roboto', sans-serif;
+        }
+        .font-teko {
+            font-family: 'Teko', sans-serif;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E6F0FF;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 450px;
+            max-height: 60vh;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="font-teko text-6xl md:text-8xl font-bold text-[#0A4ABF] tracking-wide">OPERATION SINDOOR</h1>
+            <p class="text-xl md:text-2xl text-gray-600 mt-2">Anatomy of a Multi-Domain Conflict & Technological Asymmetry</p>
+        </header>
+
+        <!-- Key Stats Section -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 text-center">
+            <div class="card p-6">
+                <p class="font-teko text-7xl font-bold text-[#0A4ABF]">100%</p>
+                <h3 class="text-xl font-semibold text-gray-700 mt-2">Indian Interception Rate</h3>
+                <p class="text-gray-500">India's 'Sudarshan Chakra' shield successfully neutralized all incoming Pakistani missile and drone threats.</p>
+            </div>
+            <div class="card p-6">
+                <p class="font-teko text-7xl font-bold text-red-600">ZERO</p>
+                <h3 class="text-xl font-semibold text-gray-700 mt-2">Successful Pakistani Interceptions</h3>
+                <p class="text-gray-500">The Chinese-made HQ-9 based air defense system failed to stop a single Indian precision munition.</p>
+            </div>
+            <div class="card p-6">
+                <p class="font-teko text-7xl font-bold text-[#0A4ABF]">4 DAYS</p>
+                <h3 class="text-xl font-semibold text-gray-700 mt-2">Duration of Conflict</h3>
+                <p class="text-gray-500">A swift, high-intensity operation from May 7-10, 2025, that reshaped regional deterrence.</p>
+            </div>
+        </section>
+
+        <!-- The Two Shields Section -->
+        <section class="mb-16">
+            <h2 class="font-teko text-5xl font-bold text-center text-[#0A4ABF] mb-2">THE TWO SHIELDS</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">The conflict's outcome was decided by the vast difference in the design, integration, and technology of the two nations' air defense networks. India's was a deeply integrated, multi-layered fortress; Pakistan's, a porous and ineffective wall.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- India's Shield -->
+                <div class="card p-6">
+                    <h3 class="font-teko text-4xl font-bold mb-4 text-center text-orange-600">🇮🇳 INDIA: The 'Sudarshan Chakra' Shield</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-lg bg-blue-50 border-l-4 border-blue-500">
+                            <h4 class="font-bold text-lg">Central Nervous System: IACCS</h4>
+                            <p>The indigenous <strong>Integrated Air Command & Control System</strong> fused all sensor data into one picture, assigning the best weapon to each threat.</p>
+                        </div>
+                        <div class="text-center text-2xl font-bold text-gray-400">↓</div>
+                        <div class="p-4 rounded-lg bg-blue-50 border-l-4 border-blue-500">
+                            <h4 class="font-bold text-lg">Outer Ring: S-400 Triumf (400km)</h4>
+                            <p>Engaged long-range missiles & aircraft, providing the first line of defense and deep monitoring of enemy airspace.</p>
+                        </div>
+                         <div class="text-center text-2xl font-bold text-gray-400">↓</div>
+                        <div class="p-4 rounded-lg bg-blue-50 border-l-4 border-blue-500">
+                            <h4 class="font-bold text-lg">Core Defense: MR-SAM & Akash (45-100km)</h4>
+                            <p>A dense, cost-effective mix of Indo-Israeli and indigenous systems defeated saturation attacks on key assets.</p>
+                        </div>
+                         <div class="text-center text-2xl font-bold text-gray-400">↓</div>
+                        <div class="p-4 rounded-lg bg-blue-50 border-l-4 border-blue-500">
+                            <h4 class="font-bold text-lg">Offensive-Defense: IAF Fighters</h4>
+                            <p>Rafale and Su-30MKI jets established air superiority and actively suppressed enemy air defenses (SEAD).</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pakistan's Shield -->
+                <div class="card p-6">
+                    <h3 class="font-teko text-4xl font-bold mb-4 text-center text-green-700">🇵🇰 PAKISTAN: The Porous Shield</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-lg bg-red-50 border-l-4 border-red-500">
+                            <h4 class="font-bold text-lg">Core System: CLIAD</h4>
+                            <p>The <strong>Comprehensive Layered Integrated Air Defence</strong> system, centered on Chinese tech, proved fragmented and ineffective.</p>
+                        </div>
+                        <div class="text-center text-2xl font-bold text-gray-400">↓</div>
+                        <div class="p-4 rounded-lg bg-red-50 border-l-4 border-red-500">
+                            <h4 class="font-bold text-lg">Primary Defender: HQ-9 SAM</h4>
+                            <p>This flagship Chinese system was blinded by Indian EW and bypassed by modern cruise missiles. It was unable to defend itself, with one battery destroyed by a loitering munition.</p>
+                        </div>
+                         <div class="text-center text-2xl font-bold text-gray-400">↓</div>
+                        <div class="p-4 rounded-lg bg-red-50 border-l-4 border-red-500">
+                            <h4 class="font-bold text-lg">Hardware Failure</h4>
+                            <p>The entire network collapsed, failing to intercept any incoming threats. A total system failure from technology to operator.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Showdown Section -->
+        <section class="mb-16">
+            <h2 class="font-teko text-5xl font-bold text-center text-[#0A4ABF] mb-8">TECHNOLOGY SHOWDOWN</h2>
+            <div class="card p-6 md:p-8">
+                <h3 class="font-teko text-4xl text-center font-bold mb-2">S-400 TRIUMF vs HQ-9B</h3>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">The performance gap between the Russian-made S-400 and the Chinese-made HQ-9B was a decisive factor. The data below illustrates the vast technical superiority of the system chosen by India.</p>
+                <div class="chart-container">
+                    <canvas id="samComparisonChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chinese Hardware Liability -->
+        <section>
+             <h2 class="font-teko text-5xl font-bold text-center text-[#0A4ABF] mb-2">THE 'MADE IN CHINA' LIABILITY</h2>
+             <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">The conflict provided a rare and damning dataset on the combat effectiveness of Chinese export-grade weaponry, validating years of anecdotal reports from other client states.</p>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card p-6">
+                    <h3 class="font-teko text-3xl font-bold text-red-600 mb-4">UCAV Unreliability</h3>
+                    <p class="mb-4">Pakistan's fleet of Chinese-made drones, including the Wing Loong and CH-4, suffered from a litany of well-documented, mission-critical failures.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="text-red-500 mr-2 text-xl">✖</span> <span><strong>GPS Failures:</strong> Rendered navigation and targeting unreliable.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2 text-xl">✖</span> <span><strong>SATCOM Link Drops:</strong> Lost connection for beyond-line-of-sight operations.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2 text-xl">✖</span> <span><strong>Sensor Malfunctions:</strong> EO/IR camera and SAR pods failed repeatedly.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2 text-xl">✖</span> <span><strong>Poor Support:</strong> Compounded by substandard spare parts and incompetent maintenance teams.</span></li>
+                    </ul>
+                </div>
+                 <div class="card p-6">
+                    <h3 class="font-teko text-3xl font-bold text-red-600 mb-4">JF-17 Thunder Outmatched</h3>
+                    <p class="mb-4">The workhorse of the Pakistan Air Force was unable to contest Indian air superiority or prevent deep-penetration strikes by the more advanced Rafale fighters.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="text-green-500 mr-2 text-xl">✔</span><span><strong>Contested Claim:</strong> PAF claimed a successful strike on an S-400.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2 text-xl">✖</span> <span><strong>Decisively Rebutted:</strong> India publicly displayed the fully operational S-400 unit, nullifying the claim.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-2 text-xl">✖</span> <span><strong>Failed to Defend:</strong> Could not establish an effective defensive screen against Indian strike packages.</span></li>
+                    </ul>
+                 </div>
+             </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Chart.js - S-400 vs HQ-9B Comparison
+            const ctx = document.getElementById('samComparisonChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Max Aircraft Range (km)', 'Simultaneous Engagements', 'Max Target Speed (Mach)', 'Radar Detection Range (km)', 'Max Trackable Targets'],
+                    datasets: [{
+                        label: 'S-400 Triumf (India)',
+                        data: [400, 36, 14, 600, 300],
+                        backgroundColor: '#0A4ABF',
+                        borderColor: '#0A4ABF',
+                        borderWidth: 1
+                    }, {
+                        label: 'HQ-9B (Pakistan)',
+                        data: [250, 8, 4.2, 300, 100],
+                        backgroundColor: '#EF4444',
+                        borderColor: '#EF4444',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#E6F0FF'
+                            },
+                            ticks: {
+                                font: {
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 14,
+                                    weight: '500'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 16,
+                                    family: "'Roboto', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                             callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
