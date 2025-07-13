@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation SINDOOR: A Strategic Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Indian Flag Inspired (#FF9933, #138808, #000080, #FFFFFF, #F7FAFC, #1A202C) -->
+    <!-- 
+      Application Structure Plan: 
+      The infographic is structured as a top-to-bottom narrative scroll, telling a coherent story of Operation Sindoor. It begins with the 'Catalyst,' establishing the 'why,' then explains 'The Meaning' of the codename to build emotional context. It proceeds to 'The Retaliation' (the 'how'), 'The Fallout' (the results), 'The Tech Edge' (the enabler), and concludes with 'The Geopolitical Impact.' This linear flow is ideal for an infographic, guiding the user through the complex event logically and ensuring all key aspects are understood in relation to each other.
+    -->
+    <!-- 
+      Visualization & Content Choices:
+      - Data Point: Pahalgam Attack Death Toll -> Goal: Inform -> Viz: Single Big Number Card -> Justification: Provides immediate, high impact for the core justification of the operation. Method: HTML/CSS. NO SVG.
+      - Data Point: India's Doctrinal Shift -> Goal: Organize -> Viz: HTML/CSS Flow Diagram -> Justification: Clearly visualizes the strategic change from a passive to an active stance. Method: HTML/CSS. NO SVG/Mermaid.
+      - Data Point: Symbolism of the name 'Sindoor' -> Goal: Organize -> Viz: HTML/CSS Icon Grid -> Justification: Breaks down the multi-layered meaning into easily digestible thematic points. Method: HTML/CSS with Unicode. NO SVG.
+      - Data Point: Conflicting Casualty/Asset Claims -> Goal: Compare -> Viz: Chart.js Grouped Bar Chart -> Justification: Directly visualizes the information warfare aspect by comparing the starkly different narratives from India and Pakistan. Method: Chart.js/Canvas. NO SVG.
+      - Data Point: Defense Exports Growth -> Goal: Change -> Viz: Chart.js Line Chart -> Justification: Effectively shows the sharp upward trend in India's defense exports, providing quantitative proof of the 'Aatmanirbhar' policy's success. Method: Chart.js/Canvas. NO SVG.
+      - Data Point: Pakistan-China-Turkey Nexus -> Goal: Relationships -> Viz: HTML/CSS Diagram -> Justification: A simple, clear representation of the strategic alliance without needing complex graphics. Method: HTML/CSS. NO SVG/Mermaid.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF; /* White background */
+            color: #1A202C; /* Dark text for readability */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .header-bg {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #F7FAFC 100%), url('https://placehold.co/1200x800/F7FAFC/FF9933?text=+|.+&font=raleway') no-repeat center center;
+            background-size: cover;
+        }
+        .section-title {
+            border-left: 4px solid #FF9933; /* Saffron accent */
+            padding-left: 1rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="header-bg text-gray-900 text-center py-24 md:py-40 px-4">
+        <h1 class="text-4xl md:text-7xl font-black uppercase tracking-widest">Operation <span class="text-[#FF9933]">Sindoor</span></h1>
+        <p class="mt-4 text-lg md:text-2xl max-w-4xl mx-auto text-gray-700">Anatomy of a Strategic Shift: How India's Retaliation Redefined its Counter-Terrorism Doctrine</p>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="catalyst" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-8 section-title">The Catalyst: An Act of Barbarism</h2>
+            <p class="text-lg text-gray-700 max-w-4xl mb-12">On April 22, 2025, a brutal terror attack in Pahalgam, Kashmir, became the flashpoint for a decisive military response. The attack, which targeted unarmed tourists, was not just an act of violence but a calculated attempt to destabilize the region, compelling India to abandon its policy of strategic patience.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <p class="text-lg font-semibold uppercase tracking-wider text-gray-500">Civilian Lives Lost</p>
+                    <p class="text-8xl font-black my-2 text-[#FF9933]">26</p>
+                    <p class="text-md font-medium text-gray-700">The human cost that triggered a nation's resolve.</p>
+                </div>
+                <div class="md:col-span-2 bg-white p-8 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-around text-center md:text-left">
+                    <div class="mb-4 md:mb-0">
+                        <h3 class="text-2xl font-bold text-gray-900">Strategic Patience</h3>
+                        <p class="text-gray-600">Previous doctrine of absorbing attacks and limited retaliation.</p>
+                    </div>
+                    <div class="text-4xl font-bold text-[#FF9933] mx-8 transform rotate-90 md:rotate-0">→</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-[#138808]">Proactive Deterrence</h3>
+                        <p class="text-gray-600">New doctrine of punitive strikes to pre-empt and dismantle terror infrastructure.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-20 border-gray-300">
+
+        <section id="name" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-8 section-title">The Name: A Message in a Word</h2>
+            <p class="text-lg text-gray-700 max-w-4xl mb-12">Personally codenamed by the Prime Minister, "Sindoor" was a masterstroke of strategic communication, transforming a military operation into a powerful national narrative of grief, justice, and resolve. Each layer of its meaning sent a specific, powerful message.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-5xl mb-4">💔</p>
+                    <h3 class="text-xl font-bold text-[#FF9933]">Memorialization</h3>
+                    <p class="mt-2 text-gray-700">A tribute to the widows of the Pahalgam attack, acknowledging the human cost and framing the response as an act of protective justice.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                     <p class="text-5xl mb-4">🛡️</p>
+                    <h3 class="text-xl font-bold text-[#000080]">Warrior Tradition</h3>
+                    <p class="mt-2 text-gray-700">Invoked the spirit of ancient warriors and Goddess Durga, positioning the action as a righteous battle against evil.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                     <p class="text-5xl mb-4">🇮🇳</p>
+                    <h3 class="text-xl font-bold text-[#138808]">National Resolve</h3>
+                    <p class="mt-2 text-gray-700">Symbolized India's unwavering commitment to protect its citizens and uphold national honor against any aggression.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                     <p class="text-5xl mb-4">🎯</p>
+                    <h3 class="text-xl font-bold text-gray-900">Strategic Acronym</h3>
+                    <p class="mt-2 text-gray-700"><span class="font-mono">S</span>trategic <span class="font-mono">I</span>nitiative for <span class="font-mono">N</span>eutralising <span class="font-mono">D</span>estructive <span class="font-mono">O</span>pponents with <span class="font-mono">O</span>verwhelming <span class="font-mono">R</span>etaliation.</p>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-20 border-gray-300">
+
+        <section id="fallout" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-8 section-title">The Fallout: A War of Narratives</h2>
+            <p class="text-lg text-gray-700 max-w-4xl mb-12">In the aftermath, India and Pakistan presented vastly different realities, engaging in information warfare to shape global perception. The chart below visualizes the conflicting claims on key metrics, illustrating the starkly divergent narratives.</p>
+            <div class="bg-white p-4 md:p-8 rounded-lg shadow-lg">
+                <div class="chart-container">
+                    <canvas id="claimsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-20 border-gray-300">
+
+        <section id="tech" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-8 section-title">The Tech Edge: Aatmanirbhar Bharat Validated</h2>
+            <p class="text-lg text-gray-700 max-w-4xl mb-12">Operation Sindoor was a powerful validation of India's 'Aatmanirbhar' (self-reliant) initiative. The success of indigenous defense technology in a real-world conflict showcased a significant leap in India's military-industrial capabilities and its journey towards strategic autonomy.</p>
+             <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                <div class="md:col-span-3 bg-white p-4 md:p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-center text-gray-900">Soaring Defense Exports</h3>
+                    <div class="chart-container h-72 md:h-auto">
+                        <canvas id="exportsChart"></canvas>
+                    </div>
+                </div>
+                <div class="md:col-span-2 bg-white p-8 rounded-lg shadow-lg flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-gray-900">Key Indigenous Systems</h3>
+                    <ul class="space-y-4 text-lg text-gray-700">
+                        <li class="flex items-start"><span class="text-[#138808] mr-3 text-2xl">✓</span><div><span class="font-bold">Akash SAM System:</span> Provided stellar air defense against retaliatory attacks.</div></li>
+                        <li class="flex items-start"><span class="text-[#138808] mr-3 text-2xl">✓</span><div><span class="font-bold">Loitering Munitions:</span> Used for precision strikes on high-value targets.</div></li>
+                        <li class="flex items-start"><span class="text-[#138808] mr-3 text-2xl">✓</span><div><span class="font-bold">Advanced EW Suites:</span> Jammed and bypassed sophisticated foreign air defense systems.</div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-20 border-gray-300">
+
+        <section id="geopolitics" class="my-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-8 section-title">Geopolitical Impact: An Emerging Nexus</h2>
+            <p class="text-lg text-gray-700 max-w-4xl mb-12">The conflict illuminated a deepening strategic nexus supporting Pakistan, revealing that India effectively faced a multi-front challenge. This complexifies the regional security calculus and highlights a new dimension in future conflicts.</p>
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-center">
+                <div class="text-center">
+                    <p class="text-6xl">🇨🇳</p>
+                    <p class="font-bold text-xl mt-2 text-gray-900">CHINA</p>
+                    <p class="text-gray-700 text-sm mt-1">Provided real-time intelligence & used Pakistan as a "live lab" to test weapons.</p>
+                </div>
+                <div class="text-5xl font-thin text-gray-400 my-4 md:my-0">+</div>
+                <div class="text-center">
+                    <p class="text-6xl">🇹🇷</p>
+                    <p class="font-bold text-xl mt-2 text-gray-900">TURKEY</p>
+                    <p class="text-gray-700 text-sm mt-1">Supplied Bayraktar drones & provided trained operational staff.</p>
+                </div>
+                <div class="text-5xl font-thin text-gray-400 my-4 md:my-0">→</div>
+                 <div class="text-center">
+                    <p class="text-6xl">🇵🇰</p>
+                    <p class="font-bold text-xl mt-2 text-gray-900">PAKISTAN</p>
+                    <p class="text-gray-700 text-sm mt-1">Received active military and technological support during the conflict.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#F7FAFC] text-gray-600 py-6 mt-16">
+        <div class="container mx-auto text-center text-sm">
+            <p>This infographic is based on a synthesis of open-source research and analysis of Operation Sindoor (May 2025).</p>
+            <p>&copy; 2025. For informational and educational purposes only.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) { return label.join(' '); }
+                return label;
+            };
+
+            const chartDefaultFont = { color: '#1A202C', family: 'Inter', size: 12 };
+            Chart.defaults.color = chartDefaultFont.color;
+            Chart.defaults.font.family = chartDefaultFont.family;
+            Chart.defaults.font.size = chartDefaultFont.size;
+
+            const claimsCtx = document.getElementById('claimsChart').getContext('2d');
+            new Chart(claimsCtx, {
+                type: 'bar',
+                data: {
+                    labels: [['Aircraft', 'Lost'], ['Military', 'Casualties'], ['Civilian', 'Casualties'], ['Terrorists', 'Killed']],
+                    datasets: [
+                        {
+                            label: "India's Claim",
+                            data: [0, 8, 21, 100],
+                            backgroundColor: '#FF9933', /* Saffron */
+                            borderRadius: 4
+                        },
+                        {
+                            label: "Pakistan's Claim",
+                            data: [6, 13, 40, 0], 
+                            backgroundColor: '#A0AEC0', /* Light Gray */
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        title: { display: true, text: 'Conflicting Claims: Casualties & Losses', font: { size: 18, weight: 'bold' }, padding: { top: 10, bottom: 20 } },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } },
+                        legend: { labels: { color: '#1A202C' } }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.1)' }, ticks: { color: '#1A202C' } },
+                        x: { grid: { display: false }, ticks: { color: '#1A202C' } }
+                    }
+                }
+            });
+
+            const exportsCtx = document.getElementById('exportsChart').getContext('2d');
+            new Chart(exportsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2014', '2016', '2018', '2020', '2022', '2024', '2025'],
+                    datasets: [{
+                        label: 'Defense Exports (₹ Crore)',
+                        data: [686, 1521, 4682, 9115, 12814, 21000, 23622],
+                        backgroundColor: 'rgba(19, 136, 8, 0.2)', /* Green with transparency */
+                        borderColor: '#138808', /* Green */
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#138808' /* Green */
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } },
+                        title: { display: false }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            ticks: { callback: (value) => `₹${value / 1000}k`, color: '#1A202C' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' }
+                        },
+                        x: { grid: { display: false }, ticks: { color: '#1A202C' } }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

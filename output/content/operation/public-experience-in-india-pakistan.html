@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Tale of Two Skies: The Civilian Experience of Operation Sindoor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f5; /* zinc-100 */
+        }
+       .font-teko {
+            font-family: 'Teko', sans-serif;
+        }
+       .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+       .tab-button.active {
+            background-color: #dc2626; /* red-600 */
+            color: #ffffff;
+        }
+       .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-slate-900 text-white">
+        <div class="container mx-auto px-6 py-16 text-center">
+            <h1 class="font-teko text-7xl md:text-8xl leading-none">A TALE OF TWO SKIES</h1>
+            <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-slate-300">
+                The "non-contact war" of May 2025 was fought in the skies. For civilians on the ground, it created two profoundly different realities—one of a shield that held, the other of a shield that broke.
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-12 px-6">
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <div class="space-y-8">
+                <h2 class="font-teko text-5xl text-center text-blue-700">🇮🇳 The Indian Experience: A Theatre of Protection</h2>
+                
+                <div class="card border-t-4 border-blue-500">
+                    <h3 class="font-bold text-2xl mb-2">Bracing for Impact</h3>
+                    <p class="text-slate-600">In the days leading up to the conflict, a tense anticipation gripped the nation. The government initiated "Operation Abhyaas," the largest civil defense drill since 1971, with air-raid sirens and blackout simulations in 244 districts, signaling that a serious escalation was imminent.</p>
+                </div>
+
+                <div class="card border-t-4 border-blue-500">
+                    <h3 class="font-bold text-2xl mb-2">A Light Show in the Sky</h3>
+                    <p class="text-slate-600">When Pakistan's retaliatory barrage of over 600 drones and missiles came, civilians in border cities like Amritsar and Jaisalmer witnessed a unique spectacle. Instead of explosions on the ground, they saw "golden streaks across the night sky" and "bright flashes" as India's multi-layered air defense shield came alive, neutralizing threats overhead.</p>
+                </div>
+
+                <div class="card bg-slate-800 text-white">
+                     <blockquote class="text-xl italic text-slate-200">"You tell me one photograph, one image, which shows any damage to any Indian structure, even a glass pane having been broken... The images only showed 13 air bases in Pakistan before and after 10th May."</blockquote>
+                    <cite class="block text-right font-semibold text-slate-400 mt-4">- NSA Ajit Doval</cite>
+                </div>
+
+                <div class="card border-t-4 border-blue-500">
+                    <h3 class="font-bold text-2xl mb-2">A Surge of Pride and Security</h3>
+                    <p class="text-slate-600">The visible success of the air defense network, powered by indigenous systems like Akashteer, fostered immense public pride and a profound sense of security. The war, for most Indians, was an abstract demonstration of technological prowess that left their cities and bases untouched, reinforcing national confidence.</p>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h2 class="font-teko text-5xl text-center text-red-700">🇵🇰 The Pakistani Experience: Fire From Above</h2>
+
+                <div class="card border-t-4 border-red-500">
+                    <h3 class="font-bold text-2xl mb-2">The Shock of the First Strike</h3>
+                    <p class="text-slate-600">The conflict began for Pakistani civilians with the shock of Indian precision strikes on terror camps deep inside their territory. Eyewitnesses in Muridke, a known terror stronghold, recounted the terrifying experience of drone attacks that left mosques and other structures "crushed". The war was immediately real and devastating.</p>
+                     <blockquote class="mt-4 border-l-4 border-red-500 pl-4 italic text-slate-700">“At around 12:45 am, one drone came first, followed by three others... they attacked the mosques... everything is crushed.”</blockquote>
+                    <cite class="block text-right font-semibold text-slate-500 mt-2">- Eyewitness in Muridke, Pakistan</cite>
+                </div>
+
+                <div class="card border-t-4 border-red-500">
+                    <h3 class="font-bold text-2xl mb-2">Escalation and Shifting Moods</h3>
+                    <p class="text-slate-600">As the conflict escalated, strikes hit military airbases, bringing the reality of war to the doorsteps of the nation's defense symbols. The public mood, initially dismissive, quickly turned to panic and anger on social media as citizens questioned their military's effectiveness.</p>
+                    
+                    <div class="mt-6">
+                        <div class="border-b border-gray-200">
+                            <nav id="mood-tabs" class="-mb-px flex space-x-4" aria-label="Tabs">
+                                <button class="tab-button whitespace-nowrap py-2 px-4 border-b-2 font-medium text-sm" data-tab="shock">Initial Shock & Anger</button>
+                                <button class="tab-button whitespace-nowrap py-2 px-4 border-b-2 font-medium text-sm" data-tab="rally">Nationalist Rally</button>
+                            </nav>
+                        </div>
+                        <div class="mt-4">
+                            <div id="shock" class="mood-tab-content">
+                                <p class="text-slate-600">Social media posts revealed widespread anger and fear as Indian drones penetrated deep into major cities like Lahore and Karachi. Citizens openly questioned the capabilities of their own air defense systems, which had been boasted about by the military.</p>
+                            </div>
+                            <div id="rally" class="mood-tab-content hidden">
+                                <p class="text-slate-600">In a remarkable turnaround, the initial shock morphed into a "rally-around-the-flag" effect. Aided by a concerted state media campaign portraying Pakistan as a resilient victim, nationalist sentiment surged, temporarily rehabilitating the military's public image.</p>
+                                <div class="chart-container mt-4">
+                                    <canvas id="gallupChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="card border-t-4 border-red-500">
+                    <h3 class="font-bold text-2xl mb-2">A Fractured Narrative</h3>
+                    <p class="text-slate-600">The government's official narrative, which downplayed damage and made unsubstantiated claims of downing Indian jets, clashed with the reality of explosions and damage that citizens were witnessing. This disconnect fueled confusion and eroded public trust, even as external threats fostered a fragile, manufactured unity.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 mt-16">
+        <div class="container mx-auto px-6 py-8 text-center text-sm">
+            <p>This interactive webpage is based on the article "A Tale of Two Skies: The Civilian Experience of Operation Sindoor" and its underlying research.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab functionality for Pakistani public mood
+            const moodTabs = document.querySelectorAll('#mood-tabs.tab-button');
+            const moodTabContents = document.querySelectorAll('.mood-tab-content');
+
+            moodTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab;
+
+                    moodTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    moodTabContents.forEach(content => {
+                        content.classList.toggle('hidden', content.id!== tabId);
+                    });
+                });
+            });
+            // Set initial active tab
+            document.querySelector('.tab-button[data-tab="shock"]').classList.add('active');
+
+
+            // Chart.js for Gallup Poll
+            const gallupCtx = document.getElementById('gallupChart');
+            if (gallupCtx) {
+                 new Chart(gallupCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['View of the Military'],
+                        datasets: [{
+                            label: 'Improved',
+                            data: [1],
+                            backgroundColor: '#16a34a', // green-600
+                            borderColor: '#bbf7d0',
+                            borderWidth: 1
+                        }, {
+                            label: 'Worsened / No Change',
+                            data: [2],
+                            backgroundColor: '#dc2626', // red-600
+                             borderColor: '#fecaca',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                stacked: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%'
+                                    },
+                                    color: '#475569'
+                                },
+                                grid: { color: '#e2e8f0' }
+                            },
+                            y: {
+                                stacked: true,
+                                grid: { display: false },
+                                ticks: { display: false }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#334155' }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Gallup Pakistan Poll: Public View of Military Post-Conflict',
+                                font: { size: 14 },
+                                color: '#1e293b'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

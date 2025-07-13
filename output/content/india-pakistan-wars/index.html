@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India-Pakistan Conflicts: An Interactive Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm & Professional (Slate, Amber, Sky, White) -->
+    <!-- 
+      Application Structure Plan: 
+      The SPA is designed as an interactive dashboard with a sticky top navigation, allowing users to jump directly to a specific conflict (1965, 1971, 1999, 2025). This non-linear, section-based structure is superior to a single narrative scroll, as it enables easy comparison between wars and allows users to explore topics of interest without being forced through a lengthy chronological account. Each war section is self-contained with an overview, casualty data, and key takeaways, providing a structured and digestible learning experience.
+    -->
+    <!-- 
+      Visualization & Content Choices: 
+      - Report Info: Casualty numbers for each war -> Goal: Compare -> Viz/Method: Chart.js Bar Chart. Justification: Provides a clear, immediate visual comparison of the human cost of each conflict.
+      - Report Info: Conflicting casualty claims in 2025 -> Goal: Compare -> Viz/Method: Chart.js Grouped Bar Chart. Justification: Perfectly illustrates the information warfare aspect by placing India's and Pakistan's claims side-by-side.
+      - Report Info: Evolution of military doctrine -> Goal: Organize -> Viz/Method: HTML/CSS Diagram. Justification: A simple flow diagram (e.g., 'Strategic Patience' -> 'Proactive Deterrence') created with Tailwind CSS effectively communicates the shift without complex graphics.
+      - Report Info: International alliances/reactions -> Goal: Organize/Relationships -> Viz/Method: HTML/CSS grid with text and Unicode icons. Justification: Clearly displays the shifting geopolitical landscape for each war in a structured, easy-to-read format.
+      - Report Info: Symbolic meaning of 'Sindoor' -> Goal: Inform/Organize -> Viz/Method: HTML/CSS styled cards. Justification: Breaks down the multifaceted meaning into distinct, digestible points (Memorialization, Resolve, etc.).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active {
+            color: #f59e0b; /* amber-500 */
+            border-bottom-color: #f59e0b;
+        }
+        .section-title {
+            border-left: 4px solid #f59e0b; /* amber-500 */
+            padding-left: 1rem;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4">
+            <ul class="flex items-center justify-center space-x-4 md:space-x-8 h-16 overflow-x-auto">
+                <li><a href="#overview" class="nav-link font-semibold text-slate-600 hover:text-amber-500 border-b-2 border-transparent pb-1">Overview</a></li>
+                <li><a href="#war-1965" class="nav-link font-semibold text-slate-600 hover:text-amber-500 border-b-2 border-transparent pb-1">1965 War</a></li>
+                <li><a href="#war-1971" class="nav-link font-semibold text-slate-600 hover:text-amber-500 border-b-2 border-transparent pb-1">1971 War</a></li>
+                <li><a href="#war-1999" class="nav-link font-semibold text-slate-600 hover:text-amber-500 border-b-2 border-transparent pb-1">Kargil War (1999)</a></li>
+                <li><a href="#op-sindoor" class="nav-link font-semibold text-slate-600 hover:text-amber-500 border-b-2 border-transparent pb-1">Op. Sindoor (2025)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="overview" class="text-center py-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900">A Comparative Analysis of India-Pakistan Conflicts</h1>
+            <p class="mt-4 text-lg max-w-3xl mx-auto text-slate-600">An interactive dashboard exploring the causes, execution, and long-term implications of major wars between India and Pakistan. Select a conflict from the navigation to begin.</p>
+             <div class="mt-12 bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold mb-6 text-slate-800">Comparative Fatalities (Military Personnel)</h3>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="overviewCasualtyChart"></canvas>
+                </div>
+                 <p class="text-xs text-slate-500 mt-4">*Casualty figures are based on neutral assessments and official reports cited in the source documents. 2025 data reflects India's claimed military fatalities.</p>
+            </div>
+        </section>
+
+        <!-- 1965 War Section -->
+        <section id="war-1965" class="py-16 scroll-mt-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-2 section-title">The 1965 War: A Strategic Indian Advantage</h2>
+            <p class="pl-5 text-slate-600 mb-8">A seventeen-day conflict initiated by Pakistan's miscalculation, which India effectively countered, leading to significant military and diplomatic realignments for both nations.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Conflict Summary</h3>
+                    <p class="text-slate-700 mb-4">Triggered by Pakistan's Operation Gibraltar—an attempt to incite insurgency in Kashmir—the war saw major conventional battles like the tank clashes at Chawinda and Asal Uttar. India countered by opening a new front in Punjab, relieving pressure on Kashmir. The war ended with India holding a strategic advantage, having successfully thwarted Pakistan's primary objectives, and both sides returned to pre-war positions under the Tashkent Declaration.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <p class="font-bold text-2xl text-sky-600">17 Days</p>
+                            <p class="text-sm text-slate-500">Duration</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <p class="font-bold text-2xl text-sky-600">Indian Strategic Gain</p>
+                            <p class="text-sm text-slate-500">Outcome</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <p class="font-bold text-2xl text-sky-600">~6,800</p>
+                            <p class="text-sm text-slate-500">Total Killed (Neutral Est.)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Long-Term Implications</h3>
+                    <ul class="space-y-3 text-slate-700">
+                        <li class="flex items-start"><span class="text-amber-500 mr-2">🇮🇳</span><span>For India, it catalyzed intelligence reforms (founding of RAW) and a strategic pivot towards the Soviet Union after the US/UK arms embargo.</span></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-2">🇵🇰</span><span>For Pakistan, it damaged the army's reputation, strained the economy, and deepened resentment in East Pakistan, setting the stage for the 1971 war.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1971 War Section -->
+        <section id="war-1971" class="py-16 scroll-mt-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-2 section-title">The 1971 War: The Birth of Bangladesh</h2>
+            <p class="pl-5 text-slate-600 mb-8">A brief but decisive conflict stemming from an internal crisis in Pakistan, which fundamentally reshaped the map of South Asia.</p>
+             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Conflict Summary</h3>
+                    <p class="text-slate-700 mb-4">The war began after Pakistan's brutal crackdown (Operation Searchlight) on East Pakistani autonomy movements led to a massive refugee crisis in India. India intervened, supporting the Mukti Bahini guerrillas. After Pakistan's pre-emptive airstrikes (Operation Chengiz Khan), India launched a full-scale, tri-service offensive, leading to the swift capture of Dhaka and the surrender of 93,000 Pakistani soldiers.</p>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <p class="font-bold text-2xl text-sky-600">13 Days</p>
+                            <p class="text-sm text-slate-500">Duration</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <p class="font-bold text-2xl text-sky-600">Decisive Indian Victory</p>
+                            <p class="text-sm text-slate-500">Outcome</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <p class="font-bold text-2xl text-sky-600">~93,000</p>
+                            <p class="text-sm text-slate-500">Pakistani POWs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Long-Term Implications</h3>
+                    <ul class="space-y-3 text-slate-700">
+                       <li class="flex items-start"><span class="text-amber-500 mr-2">🇧🇩</span><span>Led to the creation of the independent state of Bangladesh.</span></li>
+                       <li class="flex items-start"><span class="text-amber-500 mr-2">🇮🇳</span><span>Firmly established India as the dominant regional power in South Asia.</span></li>
+                       <li class="flex items-start"><span class="text-amber-500 mr-2">🌐</span><span>Strengthened the India-Soviet Union alliance, while damaging US prestige in the region due to its ambiguous stance.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1999 Kargil War Section -->
+        <section id="war-1999" class="py-16 scroll-mt-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-2 section-title">The Kargil War (1999): Conflict in a Nuclear Shadow</h2>
+            <p class="pl-5 text-slate-600 mb-8">A limited, high-altitude conflict that was the first direct military engagement between India and Pakistan after both became nuclear powers.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Conflict Summary</h3>
+                    <p class="text-slate-700 mb-4">The conflict was triggered when Pakistani soldiers infiltrated and occupied strategic high-altitude posts on the Indian side of the Line of Control (LoC) in the Kargil district. India launched a major counter-offensive, Operation Vijay, leveraging air power (Operation Safed Sagar) and artillery to reclaim the occupied peaks. International pressure, particularly from the US, forced Pakistan to withdraw its forces, resulting in a clear Indian military and diplomatic victory.</p>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <p class="font-bold text-2xl text-sky-600">~2 Months</p>
+                            <p class="text-sm text-slate-500">Duration</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <p class="font-bold text-2xl text-sky-600">Indian Victory</p>
+                            <p class="text-sm text-slate-500">Outcome</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <p class="font-bold text-2xl text-sky-600">Nuclear Risk</p>
+                            <p class="text-sm text-slate-500">Defining Feature</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Long-Term Implications</h3>
+                    <ul class="space-y-3 text-slate-700">
+                        <li class="flex items-start"><span class="text-amber-500 mr-2">🇺🇸</span><span>Marked a major shift in US policy, with explicit condemnation of Pakistan and support for India, leading to warmer US-India relations.</span></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-2">🛡️</span><span>Exposed intelligence gaps, leading to major reforms in India's defense architecture, including the creation of the Chief of Defence Staff (CDS) post.</span></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-2">☢️</span><span>Highlighted the "stability-instability paradox," where nuclear weapons deter all-out war but may encourage lower-level conflicts.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Operation Sindoor Section -->
+        <section id="op-sindoor" class="py-16 scroll-mt-16">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-2 section-title">Operation Sindoor (2025): A New Doctrine of Deterrence</h2>
+            <p class="pl-5 text-slate-600 mb-8">A speculative tri-service operation marking a shift in India's counter-terrorism doctrine from strategic patience to proactive, punitive deterrence.</p>
+            <div class="space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Catalyst & The Name's Significance</h3>
+                    <p class="text-slate-700 mb-4">The operation was a response to the brutal Pahalgam terror attack that killed 26 civilians. The name 'Sindoor,' personally chosen by the Prime Minister, was a powerful act of memorialization for the victims, especially the widows, and a symbol of India's resolve. It invoked cultural and warrior traditions, framing the military action as a righteous battle for national honor.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                     <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-center">Doctrinal Shift: A New Response</h3>
+                        <div class="flex items-center justify-around">
+                            <div class="text-center">
+                                <p class="font-semibold text-lg">Strategic Patience</p>
+                                <p class="text-sm text-slate-500">(Pre-2025)</p>
+                            </div>
+                            <span class="text-4xl font-light text-amber-500">→</span>
+                            <div class="text-center">
+                                <p class="font-semibold text-lg text-sky-600">Proactive Deterrence</p>
+                                <p class="text-sm text-slate-500">(Post-2025)</p>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-center text-slate-700">This marked the first strike across the International Boundary since 1971, signaling "no more tolerance for terror" and a new willingness to conduct deep, pre-emptive strikes.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">The Tech Edge: 'Aatmanirbhar Bharat'</h3>
+                        <p class="text-slate-700">The operation validated India's defense indigenization. Indigenous systems like the Akash SAM and loitering munitions were used effectively. Notably, the IAF jammed and bypassed Chinese-supplied air defense systems, highlighting a significant technological advantage.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-slate-800 text-center">The War of Narratives: Conflicting Casualty Claims</h3>
+                    <p class="text-center text-slate-600 mb-6">Following the strikes, India and Pakistan presented vastly different accounts of the damage and casualties, engaging in intense information warfare.</p>
+                    <div class="chart-container">
+                        <canvas id="sindoorClaimsChart"></canvas>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">Geopolitical Fallout</h3>
+                    <p class="text-slate-700">The conflict revealed a deepening military-technological nexus between Pakistan, China, and Turkey, with reports of real-time intelligence sharing and weapons testing. This suggests future conflicts may involve a more complex, multi-actor challenge for India.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            const options = { root: null, rootMargin: '0px', threshold: 0.4 };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Tooltip callback for all charts
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) { return label.join(' '); }
+                return label;
+            };
+            
+            Chart.defaults.font.family = 'Inter';
+            Chart.defaults.color = '#334155'; // slate-700
+
+            // Overview Casualty Chart
+            const overviewCtx = document.getElementById('overviewCasualtyChart').getContext('2d');
+            new Chart(overviewCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['1965 War', '1971 War', 'Kargil War (1999)', 'Op. Sindoor (2025)'],
+                    datasets: [{
+                        label: 'Indian Military Killed',
+                        data: [3000, 3843, 527, 8],
+                        backgroundColor: '#0ea5e9', // sky-500
+                        borderColor: '#0284c7', // sky-600
+                        borderWidth: 1,
+                        borderRadius: 4,
+                    }, {
+                        label: 'Pakistani Military Killed',
+                        data: [3800, 4000, 700, 40], // Using ~700 for Kargil est., 40 from Indian claim for Sindoor
+                        backgroundColor: '#f59e0b', // amber-500
+                        borderColor: '#d97706', // amber-600
+                        borderWidth: 1,
+                        borderRadius: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Operation Sindoor Claims Chart
+            const sindoorClaimsCtx = document.getElementById('sindoorClaimsChart').getContext('2d');
+            new Chart(sindoorClaimsCtx, {
+                type: 'bar',
+                data: {
+                    labels: [['Indian Aircraft', 'Downed'], ['Military', 'Personnel Killed'], ['Civilian', 'Casualties']],
+                    datasets: [
+                        {
+                            label: "India's Claim",
+                            data: [0, 8, 21],
+                            backgroundColor: '#0ea5e9', // sky-500
+                            borderRadius: 4
+                        },
+                        {
+                            label: "Pakistan's Claim",
+                            data: [6, 13, 40],
+                            backgroundColor: '#f59e0b', // amber-500
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        title: { display: false },
+                        tooltip: { callbacks: { title: tooltipTitleCallback } },
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        x: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

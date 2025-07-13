@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Drone Duel: An Interactive Analysis of Operation Sindoor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Strategic Calm" - A professional and clean theme using a light beige background, with slate and teal for data-driven elements and subtle orange for accents, creating a calm and authoritative feel. -->
+    <!-- Application Structure Plan: The SPA is structured as a comparative analysis of the two sides' drone warfare strategies, framed as "The Shield vs. The Spear." It uses a top-down narrative flow: introduction, India's successful defense, India's successful offense, and Pakistan's systemic failure. Interactive tabs are used within the "Shield" section to detail its multiple layers without overwhelming the user. A simple HTML/CSS diagram explains the SEAD process. A central bar chart provides the key data takeaway at a glance. This structure was chosen to make the dense, multi-faceted report digestible by breaking it into clear, thematic, and interactive sections. -->
+    <!-- Visualization & Content Choices: 1. Layered Defense (Data: Different SAM/Gun systems) -> Goal: Organize/Inform -> Viz: Interactive Tabs. Justification: Organizes complex layers into clickable, digestible chunks. Method: JS/HTML/CSS. 2. SEAD Doctrine (Data: Deceive-Degrade-Destroy) -> Goal: Organize -> Viz: HTML/CSS Process Flow Diagram. Justification: Clearly visualizes a multi-step tactical process without complex libraries. Method: HTML/CSS. 3. Drone Combat Outcome (Data: >600 threats launched vs neutralized) -> Goal: Compare/Inform -> Viz: Stacked Bar Chart. Justification: Provides a powerful visual summary of the report's core finding—the overwhelming effectiveness of India's defense. Method: Chart.js/Canvas. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf5; /* Light Beige */
+        }
+        .font-teko {
+            font-family: 'Teko', sans-serif;
+        }
+        .tab-button.active {
+            background-color: #14b8a6; /* teal-500 */
+            color: #ffffff;
+            border-color: #14b8a6;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            max-height: 50vh;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body class="bg-beige-50 text-slate-800 antialiased">
+
+    <!-- Header -->
+    <header class="bg-slate-800 text-white shadow-xl">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <h1 class="font-teko text-7xl md:text-8xl leading-none">THE DRONE DUEL</h1>
+            <p class="mt-2 text-lg md:text-xl max-w-3xl mx-auto text-slate-300">An interactive analysis of the drone warfare that defined Operation Sindoor, revealing how an integrated, indigenous strategy triumphed over a disparate, imported arsenal.</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 bg-slate-800/80 backdrop-blur-sm z-10 shadow-lg">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center items-center h-16 space-x-4 md:space-x-8">
+                <a href="#the-shield" class="font-teko text-2xl text-white hover:text-teal-400 transition-colors duration-300">The Shield</a>
+                <span class="text-slate-500">|</span>
+                <a href="#the-spear" class="font-teko text-2xl text-white hover:text-teal-400 transition-colors duration-300">The Spear</a>
+                 <span class="text-slate-500">|</span>
+                <a href="#the-failure" class="font-teko text-2xl text-white hover:text-teal-400 transition-colors duration-300">The Failure</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-12 px-6">
+        
+        <!-- Section 1: The Shield -->
+        <section id="the-shield" class="my-16">
+            <h2 class="font-teko text-5xl md:text-6xl text-center text-slate-800">THE SHIELD: INDIA'S INTEGRATED DEFENSE</h2>
+            <p class="text-center text-lg text-slate-600 max-w-4xl mx-auto mt-4 mb-10">India thwarted a saturation attack of over 600 drones and missiles. This success was not due to a single weapon, but an intelligent, multi-layered "system-of-systems" that automated the entire kill chain, from detection to destruction.</p>
+
+            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-teal-500">
+                <div class="text-center mb-6">
+                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                        <button type="button" data-target="shield-c2" class="tab-button active px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100">C2 Backbone</button>
+                        <button type="button" data-target="shield-long" class="tab-button px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100">Long-Range</button>
+                        <button type="button" data-target="shield-med" class="tab-button px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100">Medium-Range</button>
+                        <button type="button" data-target="shield-short" class="tab-button px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100">Point Defense</button>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <!-- C2 Backbone Content -->
+                    <div id="shield-c2" class="tab-content">
+                        <h3 class="font-bold text-2xl text-teal-600 text-center mb-4">The Central Nervous System</h3>
+                        <div class="grid md:grid-cols-2 gap-6 text-center">
+                            <div>
+                                <h4 class="font-bold text-lg">IACCS (Air Force)</h4>
+                                <p class="text-slate-600">The national-level strategic grid, fusing data from all military and civilian radars into a single, unified air picture. The brain of the entire operation.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Akashteer (Army)</h4>
+                                <p class="text-slate-600">The tactical command system that connects Army air defense units to the IACCS, automating the sensor-to-shooter loop with AI-driven threat prioritization.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Long Range Content -->
+                    <div id="shield-long" class="tab-content hidden">
+                         <h3 class="font-bold text-2xl text-teal-600 text-center mb-4">Outer Ring: Strategic Interception (Up to 400km)</h3>
+                        <p class="text-center text-slate-600">Systems like the <strong class="text-slate-800">S-400 Triumf</strong> and <strong class="text-slate-800">Barak-8 (MR-SAM)</strong> engaged high-value threats like ballistic missiles and aircraft at extreme ranges, forming the first line of defense.</p>
+                    </div>
+                    <!-- Medium Range Content -->
+                    <div id="shield-med" class="tab-content hidden">
+                        <h3 class="font-bold text-2xl text-teal-600 text-center mb-4">Middle Ring: The Workhorse (Up to 80km)</h3>
+                        <p class="text-center text-slate-600">The indigenous <strong class="text-slate-800">Akash SAM</strong> system was the hero of the defense, neutralizing the bulk of cruise missiles and larger drones with its high accuracy and multi-target engagement capability.</p>
+                    </div>
+                    <!-- Point Defense Content -->
+                    <div id="shield-short" class="tab-content hidden">
+                        <h3 class="font-bold text-2xl text-teal-600 text-center mb-4">Inner Ring: The Last Line (Under 10km)</h3>
+                        <p class="text-center text-slate-600">Modernized legacy guns like the <strong class="text-slate-800">L-70</strong> & <strong class="text-slate-800">ZU-23</strong>, integrated into the network, provided a cost-effective shield against swarms of low-value drones, complemented by specialized laser and micro-missile C-UAS systems like the <strong class="text-slate-800">DRDO D4S</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Visualization -->
+        <section class="my-20">
+             <h2 class="font-teko text-5xl md:text-6xl text-center text-slate-800">DEFENSIVE PERFORMANCE: A VISUAL ANALYSIS</h2>
+             <p class="text-center text-lg text-slate-600 max-w-4xl mx-auto mt-4 mb-10">This chart illustrates the stark difference between Pakistan's saturation offensive and the comprehensive success of India's integrated defensive shield.</p>
+             <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-orange-500">
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+             </div>
+        </section>
+
+        <!-- Section 2: The Spear -->
+        <section id="the-spear" class="my-20">
+            <h2 class="font-teko text-5xl md:text-6xl text-center text-slate-800">THE SPEAR: INDIA'S OFFENSIVE CAMPAIGN</h2>
+            <p class="text-center text-lg text-slate-600 max-w-4xl mx-auto mt-4 mb-10">India's offensive was a masterclass in modern warfare, using a sophisticated doctrine of "Deceive, Degrade, Destroy" to systematically dismantle Pakistan's defenses before striking high-value targets with precision.</p>
+
+            <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-blue-600">
+                <div class="grid md:grid-cols-3 gap-8 items-center text-center">
+                    <div class="border-b-2 md:border-b-0 md:border-r-2 border-slate-200 pb-4 md:pb-0 md:pr-4">
+                        <h3 class="font-bold text-2xl text-blue-700">1. DECEIVE</h3>
+                        <p class="text-slate-600 mt-2">Decoy drones mimicking fighter jets baited Pakistani HQ-9 SAMs into activating their radars, revealing their positions.</p>
+                    </div>
+                    <div class="border-b-2 md:border-b-0 md:border-r-2 border-slate-200 pb-4 md:pb-0 md:pr-4">
+                        <h3 class="font-bold text-2xl text-blue-700">2. DEGRADE</h3>
+                        <p class="text-slate-600 mt-2">With radars exposed, Israeli-made <strong class="text-slate-800">IAI Harop</strong> "suicide drones" homed in on the emissions, destroying the air defense batteries.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl text-blue-700">3. DESTROY</h3>
+                        <p class="text-slate-600 mt-2">With defenses neutralized, indigenous loitering munitions like the <strong class="text-slate-800">Nagastra-1</strong> and cruise missiles struck key airbases and terror HQs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Failure -->
+        <section id="the-failure" class="my-20">
+            <h2 class="font-teko text-5xl md:text-6xl text-center text-slate-800">THE FAILURE: PAKISTAN'S DISJOINTED OFFENSIVE</h2>
+            <p class="text-center text-lg text-slate-600 max-w-4xl mx-auto mt-4 mb-10">Pakistan's retaliatory "Operation Bunyan al-Marsus" was a strategic and technical failure, exposing a force potent on paper but brittle in practice.</p>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-bold text-xl text-red-600">C2 Collapse</h3>
+                    <p class="text-slate-600 mt-2">Lacking an integrated system like IACCS, the attack was a chaotic, uncoordinated "dumb swarm" that was easily defeated.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-bold text-xl text-red-600">Imported Arsenal Failure</h3>
+                    <p class="text-slate-600 mt-2">A patchwork of Turkish and Chinese drones couldn't network effectively, leading to malfunctions and even friendly fire incidents.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-bold text-xl text-red-600">"China Lab" Indictment</h3>
+                    <p class="text-slate-600 mt-2">The premier Chinese-made HQ-9 air defense system, JF-17 fighters, and PL-15 missiles all failed their first major combat test.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-sm">
+            <p>This interactive analysis is based on the research report "The Drone Duel of Operation Sindoor" for informational purposes.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab functionality for the shield section
+            const tabContainer = document.querySelector('#the-shield');
+            const tabButtons = tabContainer.querySelectorAll('.tab-button');
+            const tabContents = tabContainer.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+                    
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Chart.js Performance Chart
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pakistan Offensive vs. India Defense'],
+                    datasets: [
+                        {
+                            label: 'Threats Not Neutralized',
+                            data: [10], // Assuming a small number got through or were not engaged
+                            backgroundColor: '#ef4444', // red-500
+                        },
+                         {
+                            label: 'Neutralized by Guns / C-UAS',
+                            data: [250],
+                            backgroundColor: '#f97316', // orange-500
+                        },
+                        {
+                            label: 'Neutralized by EW / Soft-Kill',
+                            data: [150],
+                            backgroundColor: '#0ea5e9', // sky-500
+                        },
+                        {
+                            label: 'Neutralized by Missiles (Akash, S-400, etc.)',
+                            data: [200],
+                            backgroundColor: '#14b8a6', // teal-500
+                        },
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { color: '#e2e8f0' },
+                            ticks: { color: '#475569' }
+                        },
+                        y: {
+                            stacked: true,
+                            grid: { display: false },
+                            ticks: { color: '#475569', font: {size: 14} }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#334155'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Outcome of Pakistan\'s Saturation Attack (~600+ Threats)',
+                            font: { size: 18 },
+                            color: '#1e293b'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

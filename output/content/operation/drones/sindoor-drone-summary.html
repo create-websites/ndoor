@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: The Drone Duel of Operation Sindoor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Digital Battlefield" - A vibrant, high-contrast palette using energetic orange, electric blue, and warning yellow against a deep slate background to evoke a modern, military-tech aesthetic. -->
+    <!-- Narrative & Structure Plan: The infographic follows a clear comparative narrative: Asymmetrical Outcome -> How India Won (Defense & Offense) -> Why Pakistan Lost. It begins with high-impact "Big Number" stats to establish the core finding. It then deconstructs India's success into "The Shield" (defense) and "The Spear" (offense), using styled cards and simple process flow diagrams for clarity. This is contrasted with a summary of Pakistan's systemic failures. A central, compelling bar chart quantifies the defensive success. This structure was chosen to make the complex report findings highly digestible and visually engaging in a single scrollable page. -->
+    <!-- Visualization & Content Choices: 1. Conflict Outcome (Data: >600 launched vs >99% neutralized) -> Goal: Inform -> Viz: Big Number Stats. Justification: Provides a high-impact, immediate summary of the conflict's result. Method: HTML/CSS. 2. India's Defense (Data: Layered systems) -> Goal: Organize -> Viz: Styled cards with Unicode icons. Justification: Breaks down a complex system into easy-to-read, thematic components. Method: HTML/CSS. 3. India's Offense (Data: SEAD doctrine) -> Goal: Organize -> Viz: HTML/CSS Process Flow. Justification: Visually simplifies a multi-step military doctrine. Method: HTML/CSS with Unicode arrows. 4. Defensive Performance (Data: Threat breakdown) -> Goal: Compare/Inform -> Viz: Stacked Bar Chart. Justification: Clearly visualizes the scale of the attack and the effectiveness of India's multi-faceted response. Method: Chart.js/Canvas. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+            color: #f1f5f9; /* slate-100 */
+        }
+        .font-teko {
+            font-family: 'Teko', sans-serif;
+        }
+        .card {
+            background-color: #1e293b; /* slate-800 */
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border-left: 4px solid;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.4), 0 10px 10px -5px rgba(0,0,0,0.3);
+        }
+        .chart-container {
+            position: relative;
+            height: 450px;
+            max-height: 60vh;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .flow-arrow {
+            color: #ffc700; /* Yellow */
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="text-center py-16 px-6">
+        <p class="font-bold text-orange-500">OPERATION SINDOOR | DRONE WARFARE ANALYSIS</p>
+        <h1 class="font-teko text-7xl md:text-9xl leading-none mt-2 text-white">THE DRONE DUEL</h1>
+        <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-slate-300">
+            Operation Sindoor marked a new era of "non-contact" warfare in South Asia. The conflict revealed a profound asymmetry in drone capabilities, driven by India's integrated strategy versus Pakistan's disjointed arsenal.
+        </p>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Big Numbers -->
+        <section class="mb-20 text-center">
+            <h2 class="font-teko text-5xl text-center mb-10 text-white">THE ASYMMETRICAL OUTCOME</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-red-800/20 p-8 rounded-lg border-2 border-red-500">
+                    <p class="font-teko text-7xl text-red-400">600+</p>
+                    <p class="font-semibold text-lg text-slate-200 mt-2">Pakistani Drones & Missiles Launched</p>
+                    <p class="text-slate-400">A massive saturation attack intended to overwhelm Indian defenses.</p>
+                </div>
+                <div class="bg-green-800/20 p-8 rounded-lg border-2 border-green-500">
+                    <p class="font-teko text-7xl text-green-400">>99%</p>
+                    <p class="font-semibold text-lg text-slate-200 mt-2">Threats Neutralized by India</p>
+                    <p class="text-slate-400">A near-perfect defensive performance by an integrated shield.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Shield -->
+        <section class="mb-20">
+            <h2 class="font-teko text-5xl text-center mb-2 text-cyan-400">THE SHIELD 🛡️</h2>
+            <p class="text-center text-lg text-slate-300 max-w-4xl mx-auto mb-10">India's defense was not a single weapon, but an intelligent "system-of-systems" that automated the entire kill chain. The indigenous IACCS and Akashteer C2 networks fused all sensors into one picture, assigning the right weapon to the right threat in seconds.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card border-cyan-500">
+                    <h3 class="font-bold text-xl">Long Range</h3>
+                    <p class="text-slate-400 mt-2">Systems like the S-400 and Barak-8 formed the outer ring, engaging high-value threats like ballistic missiles up to 400 km away.</p>
+                </div>
+                <div class="card border-blue-500">
+                    <h3 class="font-bold text-xl">Medium Range</h3>
+                    <p class="text-slate-400 mt-2">The indigenous Akash SAM was the workhorse, destroying the bulk of cruise missiles and larger drones with high precision.</p>
+                </div>
+                <div class="card border-teal-500">
+                    <h3 class="font-bold text-xl">Point Defense</h3>
+                    <p class="text-slate-400 mt-2">Upgraded legacy guns (L-70, ZU-23) provided a cost-effective counter to swarms of smaller, low-cost drones.</p>
+                </div>
+                <div class="card border-orange-500">
+                    <h3 class="font-bold text-xl">Soft Kill & EW</h3>
+                    <p class="text-slate-400 mt-2">An electronic warfare screen jammed drone control links and GPS, neutralizing threats without firing a shot.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Performance Chart -->
+        <section class="my-24 py-16 bg-slate-800 rounded-xl">
+             <h2 class="font-teko text-5xl text-center mb-4 text-white">DEFENSIVE PERFORMANCE BREAKDOWN</h2>
+             <p class="text-center text-slate-300 max-w-3xl mx-auto mb-10">This chart visually represents the effectiveness of India's layered defense, showing how different systems contributed to neutralizing the massive saturation attack of over 600 threats.</p>
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </section>
+
+        <!-- The Spear -->
+        <section class="mb-20">
+            <h2 class="font-teko text-5xl text-center mb-2 text-orange-400">THE SPEAR 🗡️</h2>
+             <p class="text-center text-lg text-slate-300 max-w-4xl mx-auto mb-10">India's offensive was a masterclass in modern doctrine, systematically dismantling Pakistan's defenses before striking key targets with a mix of imported and combat-proven indigenous loitering munitions.</p>
+            <div class="grid md:grid-cols-5 gap-6 items-center text-center">
+                <div class="card border-yellow-400 col-span-2 md:col-span-1">
+                    <h3 class="font-bold text-xl">1. DECEIVE</h3>
+                    <p class="text-slate-400 mt-2">Decoy drones baited Pakistani radars into revealing their positions.</p>
+                </div>
+                <div class="hidden md:block flow-arrow">→</div>
+                <div class="card border-yellow-400 col-span-2">
+                    <h3 class="font-bold text-xl">2. DEGRADE</h3>
+                    <p class="text-slate-400 mt-2">IAI Harop "suicide drones" homed in on the activated radars, destroying the SAM batteries.</p>
+                </div>
+                <div class="hidden md:block flow-arrow">→</div>
+                 <div class="card border-yellow-400 col-span-2 md:col-span-1">
+                    <h3 class="font-bold text-xl">3. DESTROY</h3>
+                    <p class="text-slate-400 mt-2">With defenses down, Nagastra-1 and cruise missiles hit their targets.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Failure -->
+        <section class="mb-20">
+            <h2 class="font-teko text-5xl text-center mb-10 text-red-500">THE FAILURE: PAKISTAN'S DISJOINTED ARSENAL</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-slate-800 p-6 rounded-lg">
+                    <h3 class="font-bold text-2xl text-red-400">C2 Collapse & "Dumb Swarm"</h3>
+                    <p class="mt-2 text-slate-300">Pakistan's offensive lacked a unified command system. It was a chaotic, uncoordinated attack that was easily picked apart, with some drones malfunctioning or crashing due to friendly fire.</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-lg">
+                    <h3 class="font-bold text-2xl text-red-400">"China Lab" Indictment</h3>
+                    <p class="mt-2 text-slate-300">The premier Chinese-made HQ-9 air defense system, JF-17 fighters, and PL-15 missiles all failed their first major combat test, proving ineffective against a modern, integrated force.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 px-6 mt-12 border-t border-slate-700">
+        <p class="text-slate-400 text-sm">This infographic is based on the report "The Drone Duel of Operation Sindoor." The key takeaway: **A superior network beats superior platforms.** India's victory was a result of its long-term investment in an indigenous, integrated command architecture.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pakistani Offensive'],
+                    datasets: [
+                        {
+                            label: 'Threats Not Neutralized (<1%)',
+                            data: [6], 
+                            backgroundColor: '#ef4444', // red-500
+                            borderColor: '#fee2e2',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Neutralized by Guns / C-UAS',
+                            data: [250],
+                            backgroundColor: '#f97316', // orange-500
+                             borderColor: '#ffedd5',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Neutralized by EW / Soft-Kill',
+                            data: [150],
+                            backgroundColor: '#0ea5e9', // sky-500
+                             borderColor: '#e0f2fe',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Neutralized by Missiles (Akash, S-400, etc.)',
+                            data: [200],
+                            backgroundColor: '#14b8a6', // teal-500
+                             borderColor: '#ccfbf1',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            stacked: true,
+                            grid: { display: false },
+                            ticks: { color: '#e2e8f0', font: {size: 16} }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#cbd5e1'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Breakdown of Approx. 600+ Threats Engaged',
+                            font: { size: 18, family: "'Inter', sans-serif", weight: 'bold' },
+                            color: '#f1f5f9',
+                            padding: {
+                                top: 10,
+                                bottom: 20
+                            }
+                        },
+                        tooltip: {
+                             titleFont: {
+                                size: 16
+                            },
+                            bodyFont: {
+                                size: 14
+                            },
+                            footerFont: {
+                                size: 12
+                            },
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
