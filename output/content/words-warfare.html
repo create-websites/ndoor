@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Words to Warfare: An Interactive Timeline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Teko:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Slate, Stone) with a Strong Amber Accent -->
+    <!-- Application Structure Plan: The application is designed as a chronological, narrative-driven exploration of the 15 days between the Pahalgam attack and Operation Sindoor. A central, interactive timeline serves as the main navigation, allowing users to select key dates and see the corresponding events unfold. The structure is divided into three thematic phases: "The Vow" (leadership's messaging), "The Squeeze" (non-kinetic actions), and "The Strike" (military culmination). This story-based approach was chosen over a direct report-to-page mapping because it provides a more engaging and intuitive user experience, clearly illustrating the cause-and-effect progression from rhetoric to action. -->
+    <!-- Visualization & Content Choices: 1. Timeline (Goal: Organize/Navigate/Change): An interactive vertical timeline built with HTML/CSS and JS. Justification: Serves as the application's central nervous system, guiding the user through the narrative and reinforcing the chronology. 2. Leadership Quotes (Goal: Inform): Styled quote cards with HTML/CSS. Justification: Breaks up text and highlights the powerful messaging from the report. 3. Non-Kinetic Actions (Goal: Organize/Compare): An interactive tabbed interface (Diplomatic, Economic, Security). Justification: Segments dense information into digestible, user-selectable categories. 4. Operation Abhyaas (Goal: Inform): A stylized representation of scale using large numbers and text. Justification: Effectively conveys the massive scale of the civil drill without needing a complex map. No charts were used as the source report is qualitative and lacks comparative data suitable for Chart.js. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .font-teko {
+            font-family: 'Teko', sans-serif;
+        }
+        .timeline-item {
+            cursor: pointer;
+        }
+        .timeline-item .timeline-marker {
+            transition: all 0.3s ease;
+        }
+        .timeline-item.active .timeline-marker {
+            background-color: #d97706; /* amber-600 */
+            transform: scale(1.25);
+        }
+        .timeline-item.active .timeline-date {
+            color: #d97706;
+            font-weight: 700;
+        }
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .tab-button.active {
+            background-color: #1e293b;
+            color: #ffffff;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-slate-800 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <h1 class="font-teko text-6xl md:text-7xl">FROM WORDS TO WARFARE</h1>
+            <p class="mt-2 text-lg md:text-xl max-w-3xl mx-auto text-slate-300">An interactive analysis of India's response in the 15 days that reshaped its security doctrine, from the Pahalgam terror attack to the launch of Operation Sindoor.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-12 px-6">
+        <div class="flex flex-col md:flex-row gap-12">
+
+            <!-- Sticky Timeline Navigation -->
+            <aside class="md:w-1/3 md:sticky top-8 self-start">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <h2 class="font-teko text-4xl text-slate-700 mb-6">Crisis Timeline</h2>
+                    <div id="timeline-nav" class="relative pl-6 border-l-2 border-slate-200">
+                        <!-- Timeline Item 1 -->
+                        <div class="timeline-item mb-8" data-section="vow">
+                            <div class="absolute -left-[9px] w-4 h-4 bg-slate-400 rounded-full timeline-marker"></div>
+                            <p class="font-bold text-lg timeline-date text-slate-600">April 22</p>
+                            <h3 class="font-semibold text-xl text-slate-800">The Vow</h3>
+                            <p class="text-sm text-slate-500">In response to the heinous attack, India's leadership makes an uncompromising promise of justice.</p>
+                        </div>
+                        <!-- Timeline Item 2 -->
+                        <div class="timeline-item mb-8" data-section="squeeze">
+                            <div class="absolute -left-[9px] w-4 h-4 bg-slate-400 rounded-full timeline-marker"></div>
+                            <p class="font-bold text-lg timeline-date text-slate-600">April 23 - May 6</p>
+                            <h3 class="font-semibold text-xl text-slate-800">The Squeeze</h3>
+                            <p class="text-sm text-slate-500">A series of decisive non-military actions are taken to exert pressure and prepare the nation.</p>
+                        </div>
+                        <!-- Timeline Item 3 -->
+                        <div class="timeline-item" data-section="strike">
+                            <div class="absolute -left-[9px] w-4 h-4 bg-slate-400 rounded-full timeline-marker"></div>
+                            <p class="font-bold text-lg timeline-date text-slate-600">May 7</p>
+                            <h3 class="font-semibold text-xl text-slate-800">The Strike</h3>
+                            <p class="text-sm text-slate-500">The promise is delivered. Operation Sindoor is launched, marking a new era of punitive deterrence.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Dynamic Content Area -->
+            <main class="md:w-2/3">
+                <!-- Section 1: The Vow -->
+                <section id="vow" class="content-section">
+                    <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                        <h2 class="font-teko text-5xl text-amber-600">Phase 1: The Vow</h2>
+                        <p class="text-slate-600 mt-2 mb-6">Following the attack, India's leadership swiftly articulated a new, unyielding doctrine of zero tolerance for terrorism, broadcasting a message of unshakable resolve to both domestic and international audiences.</p>
+                        
+                        <div class="space-y-6">
+                            <div class="border-l-4 border-amber-500 bg-amber-50 p-4 rounded-r-lg">
+                                <blockquote class="text-lg italic text-slate-800">"Those behind this heinous act will be brought to justice... they will not be spared! Our resolve to fight terrorism is unshakable."</blockquote>
+                                <cite class="block text-right font-semibold text-slate-600 mt-2">- Prime Minister Narendra Modi</cite>
+                            </div>
+                            <div class="border-l-4 border-slate-500 bg-slate-50 p-4 rounded-r-lg">
+                                <blockquote class="text-lg italic text-slate-800">"If any country provides direct or indirect support to terrorism, it must pay the price for it."</blockquote>
+                                <cite class="block text-right font-semibold text-slate-600 mt-2">- PM Modi at BRICS Summit</cite>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: The Squeeze -->
+                <section id="squeeze" class="content-section">
+                     <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                        <h2 class="font-teko text-5xl text-amber-600">Phase 2: The Squeeze</h2>
+                        <p class="text-slate-600 mt-2 mb-6">The government's strong rhetoric was immediately backed by a series of tangible measures designed to impose costs on Pakistan and prepare the nation for all eventualities.</p>
+                        
+                        <!-- Tabs -->
+                        <div class="mb-6">
+                            <div id="action-tabs" class="flex space-x-2 border-b border-slate-200">
+                                <button class="tab-button px-4 py-2 text-sm font-semibold text-slate-600 rounded-t-md" data-tab="diplomatic">Diplomatic & Economic</button>
+                                <button class="tab-button px-4 py-2 text-sm font-semibold text-slate-600 rounded-t-md" data-tab="security">Domestic Security</button>
+                                <button class="tab-button px-4 py-2 text-sm font-semibold text-slate-600 rounded-t-md" data-tab="preparedness">National Preparedness</button>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content -->
+                        <div id="action-content-container">
+                            <div id="diplomatic" class="action-tab-content">
+                                <h3 class="font-bold text-xl mb-4 text-slate-700">Imposing Costs Without Firing a Shot</h3>
+                                <ul class="list-disc list-inside space-y-3 text-slate-600">
+                                    <li><strong>Indus Waters Treaty Suspended:</strong> A significant move with profound economic implications, sending the message "blood and water cannot flow together."</li>
+                                    <li><strong>Diplomatic Isolation:</strong> Expelled Pakistani military advisers and reduced staff at the High Commission in Islamabad.</li>
+                                    <li><strong>Economic Strangulation:</strong> Closed the Attari-Wagah border for trade, suspended bilateral commerce, and revoked all visas for Pakistani nationals.</li>
+                                </ul>
+                            </div>
+                            <div id="security" class="action-tab-content" style="display: none;">
+                                <h3 class="font-bold text-xl mb-4 text-slate-700">Securing the Homeland</h3>
+                                <ul class="list-disc list-inside space-y-3 text-slate-600">
+                                    <li><strong>Immediate Counter-Insurgency:</strong> Launched a joint cordon-and-search operation in Kashmir by Army, paramilitary, and police forces.</li>
+                                    <li><strong>Information Control:</strong> Blocked over 8,000 social media accounts to prevent the spread of disinformation and panic.</li>
+                                </ul>
+                            </div>
+                            <div id="preparedness" class="action-tab-content" style="display: none;">
+                                <h3 class="font-bold text-xl mb-4 text-slate-700">Operation Abhyaas: Preparing for the Worst</h3>
+                                <p class="text-slate-600 mb-4">The most telling signal of India's intentions was a massive nationwide civil defence drill, the largest since the 1971 war, demonstrating readiness for a potential hostile attack.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+                                    <div class="bg-slate-100 p-4 rounded-lg">
+                                        <p class="font-teko text-5xl text-slate-800">244</p>
+                                        <p class="font-semibold text-slate-600">Districts Involved</p>
+                                    </div>
+                                    <div class="bg-slate-100 p-4 rounded-lg">
+                                        <p class="font-teko text-5xl text-slate-800">7</p>
+                                        <p class="font-semibold text-slate-600">States Covered</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-slate-500 mt-4">The drill included testing air-raid sirens, simulating blackouts, camouflaging strategic assets, and conducting evacuation drills in major cities.</p>
+                            </div>
+                        </div>
+                     </div>
+                </section>
+
+                <!-- Section 3: The Strike -->
+                <section id="strike" class="content-section">
+                     <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                        <h2 class="font-teko text-5xl text-amber-600">Phase 3: The Strike</h2>
+                        <p class="text-slate-600 mt-2 mb-6">After a fortnight of Pakistani inaction and with intelligence indicating further impending attacks, India's leadership determined that a military response was a "compulsion both to deter and to pre-empt." The promise made on April 22 was delivered.</p>
+                        <div class="bg-slate-800 text-white p-6 rounded-lg">
+                            <h3 class="font-teko text-4xl">Operation Sindoor Launched</h3>
+                            <p class="mt-2 mb-4">On the night of May 7, India launched a "punitive and targeted campaign to dismantle the terror infrastructure."</p>
+                            <ul class="list-none space-y-2">
+                                <li class="flex items-center"><span class="text-amber-400 mr-2">🎯</span> <strong>Focused:</strong> Specifically targeted 9 terrorist infrastructure sites.</li>
+                                <li class="flex items-center"><span class="text-amber-400 mr-2">⚖️</span> <strong>Measured:</strong> Avoided Pakistani military installations to control escalation.</li>
+                                <li class="flex items-center"><span class="text-amber-400 mr-2">🛡️</span> <strong>Decisive:</strong> Established a new, credible threshold for India's response to state-sponsored terrorism.</li>
+                            </ul>
+                        </div>
+                     </div>
+                </section>
+            </main>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-sm">
+            <p>This interactive application is based on the source report "From Words to Warfare" for analytical and informational purposes.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            function setActiveSection(sectionId) {
+                // Update timeline nav
+                timelineItems.forEach(item => {
+                    item.classList.toggle('active', item.dataset.section === sectionId);
+                });
+
+                // Update content display
+                contentSections.forEach(section => {
+                    section.classList.toggle('active', section.id === sectionId);
+                });
+            }
+
+            // Timeline navigation logic
+            timelineItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const sectionId = item.dataset.section;
+                    setActiveSection(sectionId);
+                });
+            });
+
+            // Tab navigation logic for "The Squeeze"
+            const actionTabs = document.querySelectorAll('.tab-button');
+            const actionTabContents = document.querySelectorAll('.action-tab-content');
+
+            actionTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab;
+
+                    // Update tab buttons
+                    actionTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    // Update tab content
+                    actionTabContents.forEach(content => {
+                        content.style.display = content.id === tabId ? 'block' : 'none';
+                    });
+                });
+            });
+
+            // Set initial state
+            setActiveSection('vow');
+            document.querySelector('.tab-button[data-tab="diplomatic"]').classList.add('active');
+            document.getElementById('diplomatic').style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>

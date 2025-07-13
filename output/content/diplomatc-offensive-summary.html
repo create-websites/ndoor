@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Operation Sindoor's Diplomatic Offensive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues & Oranges -->
+    <!-- Narrative & Structure Plan: This infographic tells the story of India's post-conflict diplomatic campaign in a linear, scrollable narrative. It starts with a high-impact "Hook" section using large numbers to show the scale of the mission. It then moves to "The Case," visually organizing the three pillars of evidence India presented. The core data is visualized in "The Global Reaction," using a bar chart for easy comparison of international stances, and "Delegation Distribution," using a donut chart to show geographic focus. The narrative concludes with "The Final Verdict," a balanced summary of achievements and shortcomings. This structure was chosen to guide the user from the "what" to the "so what" in an engaging, data-driven way. -->
+    <!-- Visualization & Content Choices: 1. Mission KPIs (Data: 7 delegations, 33 countries, 50+ diplomats) -> Goal: Inform -> Visualization: Single Big Number. Justification: Maximum visual impact for key stats. Method: HTML/CSS. 2. Evidence Pillars (Data: 3 types of evidence) -> Goal: Organize -> Visualization: Styled Cards in a Grid. Justification: Visually segments the core arguments. Method: HTML/CSS. 3. Global Reaction (Data: Spectrum of support from key nations) -> Goal: Compare -> Visualization: Horizontal Bar Chart. Justification: Best way to compare categorical data and show a spectrum of responses. Method: Chart.js/Canvas. 4. Delegation Distribution (Data: Countries visited per region) -> Goal: Compare (Composition) -> Visualization: Donut Chart. Justification: Clearly shows the proportional focus of the diplomatic effort. Method: Chart.js/Canvas. CONFIRMATION: NO SVG used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .font-teko {
+            font-family: 'Teko', sans-serif;
+        }
+        :root {
+            --color-primary: #003f5c;
+            --color-secondary: #7a5195;
+            --color-accent1: #ef5675;
+            --color-accent2: #ffa600;
+            --color-text: #343a40;
+            --color-bg-light: #ffffff;
+            --color-bg-dark: #e9ecef;
+        }
+        .bg-primary { background-color: var(--color-primary); }
+        .text-primary { color: var(--color-primary); }
+        .text-accent1 { color: var(--color-accent1); }
+        .text-accent2 { color: var(--color-accent2); }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .stat-card {
+            background-color: var(--color-bg-light);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+        .card {
+            background-color: var(--color-bg-light);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="text-primary">
+
+    <div class="bg-primary text-white">
+        <div class="container mx-auto px-6 py-16 text-center">
+            <h1 class="font-teko text-7xl md:text-8xl">THE DIPLOMATIC OFFENSIVE</h1>
+            <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto opacity-90">
+                Following Operation Sindoor, India launched an unprecedented global campaign to shape the narrative, present irrefutable evidence, and hold Pakistan accountable for state-sponsored terrorism.
+            </p>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Section 1: The Mission in Numbers -->
+        <section id="mission-stats" class="my-16">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="stat-card">
+                    <p class="font-teko text-8xl text-accent2">7</p>
+                    <h3 class="font-bold text-2xl mt-2">High-Level Delegations</h3>
+                </div>
+                <div class="stat-card">
+                    <p class="font-teko text-8xl text-accent2">33</p>
+                    <h3 class="font-bold text-2xl mt-2">Countries Visited</h3>
+                </div>
+                <div class="stat-card">
+                    <p class="font-teko text-8xl text-accent2">50+</p>
+                    <h3 class="font-bold text-2xl mt-2">MPs & Diplomats Mobilized</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Presenting the Case -->
+        <section id="the-case" class="my-24">
+            <h2 class="font-teko text-6xl text-center mb-4">PRESENTING THE CASE</h2>
+            <p class="text-center text-lg max-w-3xl mx-auto mb-12">To counter disinformation, India built its argument on three pillars of verifiable evidence.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card text-center">
+                    <p class="font-teko text-5xl text-accent1 mb-4">01</p>
+                    <h3 class="font-bold text-xl mb-2">Proof of Complicity</h3>
+                    <p class="text-sm">Linked the attack to Pakistan-based LeT and highlighted its history of obstructing investigations into prior attacks.</p>
+                </div>
+                <div class="card text-center">
+                    <p class="font-teko text-5xl text-accent1 mb-4">02</p>
+                    <h3 class="font-bold text-xl mb-2">Proof of Successful Strikes</h3>
+                    <p class="text-sm">Provided international media with satellite imagery showing significant damage to terrorist HQs in Bahawalpur and Muridke.</p>
+                </div>
+                <div class="card text-center">
+                    <p class="font-teko text-5xl text-accent1 mb-4">03</p>
+                    <h3 class="font-bold text-xl mb-2">Proof of Failed Retaliation</h3>
+                    <p class="text-sm">Showcased recovered debris from Chinese PL-15 missiles and Turkish drones, proving its defense shield defeated them.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Global Reaction -->
+        <section id="global-reaction" class="my-24 py-16 bg-bg-dark rounded-xl">
+             <h2 class="font-teko text-6xl text-center mb-4">THE GLOBAL REACTION</h2>
+             <p class="text-center text-lg max-w-3xl mx-auto mb-12">The international response was mixed, driven more by strategic interests than the evidence presented. This chart visualizes the spectrum of reactions, from supportive to opposed.</p>
+            <div class="card">
+                <div class="chart-container">
+                    <canvas id="reactionChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Delegation Distribution -->
+        <section id="delegation-distribution" class="my-24">
+            <h2 class="font-teko text-6xl text-center mb-4">DIPLOMATIC FOOTPRINT</h2>
+            <p class="text-center text-lg max-w-3xl mx-auto mb-12">The 33-country diplomatic tour was strategically allocated across key global regions to maximize impact and engage a diverse set of partners.</p>
+             <div class="card">
+                <div class="chart-container">
+                    <canvas id="distributionChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: The Final Verdict -->
+        <section id="final-verdict" class="my-24">
+            <h2 class="font-teko text-6xl text-center mb-4">THE FINAL VERDICT</h2>
+            <p class="text-center text-lg max-w-3xl mx-auto mb-12">The diplomatic campaign was a powerful exercise in strategic communication, but it revealed the limits of converting military success into immediate geopolitical wins.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card border-l-4 border-green-500">
+                    <h3 class="font-bold text-2xl mb-4">Achievements</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><span class="text-green-500 font-bold text-2xl mr-3">✔</span><span><strong>Projected National Unity:</strong> Showcased rare cross-party consensus on national security.</span></li>
+                        <li class="flex items-start"><span class="text-green-500 font-bold text-2xl mr-3">✔</span><span><strong>Communicated New Doctrine:</strong> Signaled a clear shift from "strategic restraint" to "punitive deterrence."</span></li>
+                        <li class="flex items-start"><span class="text-green-500 font-bold text-2xl mr-3">✔</span><span><strong>Controlled the Narrative:</strong> Successfully framed the conflict as a legitimate counter-terror operation.</span></li>
+                    </ul>
+                </div>
+                <div class="card border-l-4 border-red-500">
+                    <h3 class="font-bold text-2xl mb-4">Shortcomings</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><span class="text-red-500 font-bold text-2xl mr-3">✖</span><span><strong>Failed to Isolate Pakistan:</strong> Key goal was not achieved; no major sanctions were imposed.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 font-bold text-2xl mr-3">✖</span><span><strong>Limited Endorsement:</strong> Few nations explicitly backed India's military action, prioritizing de-escalation.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 font-bold text-2xl mr-3">✖</span><span><strong>Erosion of Agency:</strong> US lead in ceasefire announcement was perceived as undermining India's influence.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-primary text-white mt-16">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>Fictional Infographic based on the provided research report. For analytical purposes only.</p>
+        </div>
+    </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tooltip Configuration
+    const tooltipConfig = {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    // Chart 1: Global Reaction
+    const reactionCtx = document.getElementById('reactionChart').getContext('2d');
+    const reactionData = {
+        labels: ['Explicit Support (Israel)', 'Solidarity (Russia)', 'Cautious / De-escalation Focus (USA, UAE, Japan)', 'Neutral (UN)', 'Opposed (China)'],
+        datasets: [{
+            label: 'International Stance',
+            data: [2, 1.5, 0.5, 0, -2],
+            backgroundColor: [
+                '#2a9d8f',
+                '#264653',
+                '#e9c46a',
+                '#f4a261',
+                '#e76f51'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 2,
+            borderRadius: 5
+        }]
+    };
+    new Chart(reactionCtx, {
+        type: 'bar',
+        data: reactionData,
+        options: {
+            ...tooltipConfig,
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: { display: true, text: '← Opposed | Supportive →', color: '#6c757d'},
+                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    ticks: { display: false }
+                },
+                y: {
+                    grid: { display: false },
+                    ticks: { color: 'var(--color-primary)', font: { weight: '600' } }
+                }
+            },
+            plugins: {
+                ...tooltipConfig.plugins,
+                legend: { display: false }
+            }
+        }
+    });
+
+
+    // Chart 2: Delegation Distribution
+    const distributionCtx = document.getElementById('distributionChart').getContext('2d');
+    const distributionData = {
+        labels: ['Europe', 'Middle East', 'Americas', 'Asia-Pacific', 'Africa'],
+        datasets: [{
+            label: '# of Countries Visited',
+            data: [13, 7, 5, 4, 5],
+            backgroundColor: [
+                '#003f5c',
+                '#7a5195',
+                '#ef5675',
+                '#ffa600',
+                '#6c757d'
+            ],
+            borderColor: '#ffffff',
+            borderWidth: 4
+        }]
+    };
+    new Chart(distributionCtx, {
+        type: 'doughnut',
+        data: distributionData,
+        options: {
+            ...tooltipConfig,
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '60%',
+            plugins: {
+                ...tooltipConfig.plugins,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: 'var(--color-primary)',
+                        padding: 20,
+                        font: { size: 14, weight: '600' }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>

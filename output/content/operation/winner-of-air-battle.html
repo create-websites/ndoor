@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Air Power in Operation Sindoor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Combat Ready" - A vibrant, high-contrast palette using deep navy, fiery orange, and slate gray to evoke a modern, military-tech feel. -->
+    <!-- Narrative & Structure Plan: The infographic tells the story of air superiority through direct comparison. It opens with a bold statement on the conflict's outcome. It then dedicates sections to the IAF's primary assets (Rafale, Su-30MKI), presenting their roles and successes in visually distinct cards. This is contrasted with a section on the PAF's JF-17, highlighting its limitations. A central Radar Chart provides a powerful, at-a-glance comparison of the key aircraft. The narrative concludes with a clear "Combat Scorecard," summarizing the confirmed results. This structure was chosen to make the report's findings immediately digestible and visually impactful. -->
+    <!-- Visualization & Content Choices: 1. Aircraft Profiles (Data: Roles/Performance from report) -> Goal: Inform -> Visualization: Styled Info Cards. Justification: Organizes key qualitative data into scannable blocks. Method: HTML/CSS with Unicode icons. 2. Comparative Specs (Data: Range, Speed, Payload from report) -> Goal: Compare -> Visualization: Radar Chart. Justification: A radar chart is excellent for comparing multiple quantitative variables across different subjects (the aircraft), providing an immediate visual "fingerprint" of each platform's strengths. Method: Chart.js/Canvas. 3. Combat Results (Data: Confirmed vs. Unconfirmed claims) -> Goal: Inform -> Visualization: Big Number Stats. Justification: Uses large, bold numbers for high impact, clearly stating the conflict's outcome. Method: HTML/CSS. CONFIRMATION: NO SVG used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+            color: #f1f5f9; /* slate-100 */
+        }
+        .font-teko {
+            font-family: 'Teko', sans-serif;
+        }
+        .card {
+            background-color: #1e293b; /* slate-800 */
+            border-radius: 0.75rem;
+            padding: 2rem;
+            border-top: 4px solid;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.25);
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            max-height: 60vh;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="text-center py-16 px-6">
+        <p class="font-bold text-orange-500">OPERATION SINDOOR | AERIAL COMBAT ANALYSIS</p>
+        <h1 class="font-teko text-7xl md:text-9xl leading-none mt-2 text-white">AIR SUPERIORITY</h1>
+        <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-slate-300">
+            The aerial dimension of Operation Sindoor was a decisive factor, showcasing a significant disparity in technology, strategy, and combat effectiveness between the Indian and Pakistani Air Forces.
+        </p>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- IAF Showcase -->
+        <section class="mb-20">
+            <h2 class="font-teko text-5xl text-center mb-10 text-cyan-400">INDIAN AIR FORCE: A MULTI-PLATFORM STRATEGY</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Rafale Card -->
+                <div class="card border-cyan-500">
+                    <h3 class="font-teko text-5xl">Dassault Rafale</h3>
+                    <p class="font-semibold text-cyan-400 mb-4">The Tip of the Spear</p>
+                    <p class="text-slate-300">The 4.5-gen Rafale was tasked with the most critical deep-penetration missions, successfully launching SCALP cruise missiles from standoff ranges to hit high-value targets with pinpoint accuracy.</p>
+                    <div class="mt-4 text-left space-y-2">
+                        <p><strong class="text-slate-200">Key Feature:</strong> Advanced SPECTRA EW suite allowed it to bypass and suppress enemy air defenses.</p>
+                        <p><strong class="text-slate-200">Result:</strong> Mission success. Subject of a hostile disinformation campaign due to its effectiveness.</p>
+                    </div>
+                </div>
+                <!-- Su-30MKI Card -->
+                <div class="card border-blue-500">
+                    <h3 class="font-teko text-5xl">Sukhoi Su-30MKI</h3>
+                    <p class="font-semibold text-blue-400 mb-4">The Air Dominance Workhorse</p>
+                    <p class="text-slate-300">The Su-30MKI maintained air superiority and launched devastating strikes. Its super-maneuverability allowed it to evade Chinese-made missiles while its weapons destroyed strategic targets.</p>
+                     <div class="mt-4 text-left space-y-2">
+                        <p><strong class="text-slate-200">Key Feature:</strong> Launched BrahMos-A supersonic missiles, destroying three strategic Pakistani airbases.</p>
+                        <p><strong class="text-slate-200">Result:</strong> Decisive impact. Confirmed air-to-air kills and reaffirmed its status as a frontline platform.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAF Showcase -->
+        <section class="mb-20">
+             <h2 class="font-teko text-5xl text-center mb-10 text-red-500">PAKISTAN AIR FORCE: THE CONTESTED CHAMPION</h2>
+             <div class="max-w-3xl mx-auto">
+                <div class="card border-red-500">
+                    <h3 class="font-teko text-5xl">PAC/CAC JF-17 Thunder</h3>
+                    <p class="font-semibold text-red-400 mb-4">Outmatched and Exposed</p>
+                    <p class="text-slate-300">The PAF's workhorse, the JF-17 was unable to prevent IAF deep strikes or meaningfully challenge for air superiority. The conflict highlighted the aircraft's limitations against a technologically superior, better-integrated force.</p>
+                    <div class="mt-4 text-left space-y-2">
+                        <p><strong class="text-slate-200">Key Limitation:</strong> Lacks the advanced avionics, electronic warfare suites, and weapon systems of its IAF counterparts.</p>
+                        <p><strong class="text-slate-200">Result:</strong> Suffered confirmed losses and failed to achieve its objectives. Exposed significant technological and tactical gaps.</p>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- Comparative Radar Chart -->
+        <section class="my-24 py-16 bg-slate-800 rounded-xl">
+             <h2 class="font-teko text-5xl text-center mb-4 text-white">HEAD-TO-HEAD: CAPABILITY ANALYSIS</h2>
+             <p class="text-center text-slate-300 max-w-3xl mx-auto mb-10">This radar chart provides a visual comparison of the key platforms across critical performance metrics, revealing the significant technological advantage held by the IAF's fleet.</p>
+            <div class="chart-container">
+                <canvas id="aircraftRadarChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Combat Scorecard -->
+        <section class="my-24">
+            <h2 class="font-teko text-5xl text-center mb-10 text-white">COMBAT SCORECARD: THE FINAL TALLY</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-center">
+                <div class="card border-green-500">
+                    <h3 class="font-teko text-4xl text-green-400 mb-2">IAF: Confirmed Successes</h3>
+                    <p class="font-teko text-8xl text-white">2+</p>
+                    <p class="font-semibold text-slate-300">JF-17s Shot Down (by Rafale & Su-30MKI)</p>
+                    <p class="mt-4 text-slate-400">Successfully destroyed all high-value targets and suppressed enemy air defenses.</p>
+                </div>
+                <div class="card border-red-500">
+                     <h3 class="font-teko text-4xl text-red-400 mb-2">PAF: Unsubstantiated Claims</h3>
+                    <p class="font-teko text-8xl text-white">5</p>
+                    <p class="font-semibold text-slate-300">IAF Jets Claimed (including 3 Rafales)</p>
+                     <p class="mt-4 text-slate-400">Claims of shooting down IAF aircraft remain unproven and were effectively rebutted.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8 px-6 mt-12 border-t border-slate-700">
+        <p class="text-slate-400 text-sm">This infographic is based on the report "Air Power in Operation Sindoor: A Comparative Analysis."</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('aircraftRadarChart').getContext('2d');
+            const data = {
+                labels: [
+                    'Max Speed',
+                    'Combat Range',
+                    'Weapon Payload',
+                    'Generation',
+                    'EW Suite'
+                ],
+                datasets: [{
+                    label: 'IAF Rafale',
+                    data: [8, 9, 10, 9, 10], // Scaled 1-10 for visualization
+                    fill: true,
+                    backgroundColor: 'rgba(6, 182, 212, 0.2)',
+                    borderColor: 'rgb(6, 182, 212)',
+                    pointBackgroundColor: 'rgb(6, 182, 212)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(6, 182, 212)'
+                }, {
+                    label: 'IAF Su-30MKI',
+                    data: [10, 7, 8, 8, 8], // Scaled 1-10
+                    fill: true,
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    pointBackgroundColor: 'rgb(59, 130, 246)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(59, 130, 246)'
+                }, {
+                    label: 'PAF JF-17',
+                    data: [7, 3, 4, 7, 5], // Scaled 1-10
+                    fill: true,
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    borderColor: 'rgb(239, 68, 68)',
+                    pointBackgroundColor: 'rgb(239, 68, 68)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(239, 68, 68)'
+                }]
+            };
+
+            const aircraftRadarChart = new Chart(ctx, {
+                type: 'radar',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(255, 255, 255, 0.2)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.2)'
+                            },
+                            pointLabels: {
+                                color: '#f1f5f9', // slate-100
+                                font: {
+                                    size: 14,
+                                    family: "'Inter', sans-serif"
+                                }
+                            },
+                            ticks: {
+                                color: '#94a3b8', // slate-400
+                                backdropColor: 'rgba(0,0,0,0)',
+                                stepSize: 2
+                            },
+                            min: 0,
+                            max: 10
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                             labels: {
+                                color: '#cbd5e1', // slate-300
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                 }
+                             }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

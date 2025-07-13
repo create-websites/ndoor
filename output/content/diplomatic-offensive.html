@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Sindoor: The Diplomatic Offensive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Teko:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Gold & Blue Accents -->
+    <!-- Application Structure Plan: The application is structured as a single-page narrative scroll, guiding the user from the "what" to the "so what." It begins with high-level summary cards (The Mission), details the core arguments (The Case), presents the main data via an interactive global response section (The Reaction), and concludes with a balanced assessment (The Verdict). This structure was chosen to make a complex diplomatic report easily digestible, allowing users to explore different facets of the campaign logically and interactively. -->
+    <!-- Visualization & Content Choices: 1. Mission Stats (Goal: Inform): HTML/CSS "stat cards" for key numbers (delegations, countries) for immediate impact. 2. Evidence Showcase (Goal: Organize): An interactive accordion built with HTML/JS to present the different categories of evidence (complicity, successful strikes). Justification: This segments dense information into manageable, user-triggered sections. 3. Global Response (Goal: Compare/Explore): A tabbed interface where clicking a country's button dynamically displays their specific reaction. Justification: This is the most effective way to present the report's core comparative data, allowing users to actively explore and contrast the varied international responses. 4. Delegation Breakdown (Goal: Proportions): A Chart.js Donut chart to visually represent the regional focus of the diplomatic missions. Justification: Provides a quick visual summary of the campaign's geographic priorities. Library: Chart.js/Canvas. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfdfd;
+            color: #333;
+        }
+        .font-teko {
+            font-family: 'Teko', sans-serif;
+        }
+        .section-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 1px;
+            color: #1a202c;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #4a5568;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            text-align: center;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        }
+        .tab-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f7fafc;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+        }
+        .tab-button.active {
+            background-color: #2d3748;
+            color: #ffffff;
+            border-color: #2d3748;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+        }
+        .accordion-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #f7fafc;
+            padding: 0 1rem;
+        }
+        .accordion-content p, .accordion-content ul {
+            padding-bottom: 1rem;
+        }
+        .accordion-header .icon::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .accordion-header .icon::after {
+            transform: rotate(45deg);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-gray-800">The Diplomatic Offensive</h1>
+            <p class="text-gray-600 mt-1">Analyzing the Global Response to Operation Sindoor</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="mission" class="mb-20">
+            <h2 class="section-title">THE MISSION</h2>
+            <p class="section-subtitle">
+                Following its military action, India launched an unprecedented diplomatic campaign. The goal: to shape the global narrative, present irrefutable evidence of Pakistan's role in terrorism, and build an international coalition to hold Islamabad accountable. This was a projection of national unity and a test of India's diplomatic influence.
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="card">
+                    <p class="font-teko text-6xl text-blue-600">7</p>
+                    <h3 class="text-xl font-semibold text-gray-700 mt-2">Delegations Sent</h3>
+                </div>
+                <div class="card">
+                    <p class="font-teko text-6xl text-blue-600">33</p>
+                    <h3 class="text-xl font-semibold text-gray-700 mt-2">Countries Visited</h3>
+                </div>
+                <div class="card">
+                    <p class="font-teko text-6xl text-blue-600">50+</p>
+                    <h3 class="text-xl font-semibold text-gray-700 mt-2">MPs & Diplomats</h3>
+                </div>
+                <div class="card">
+                    <p class="font-teko text-6xl text-blue-600">1</p>
+                    <h3 class="text-xl font-semibold text-gray-700 mt-2">Unified Message</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="evidence" class="mb-20">
+            <h2 class="section-title">THE CASE</h2>
+            <p class="section-subtitle">
+                To counter Pakistani disinformation and justify its actions, India presented a compelling body of evidence to the international community. The case was built on three pillars, presented to lawmakers, think tanks, and global media. Click each item to expand the evidence presented.
+            </p>
+            <div id="accordion-container" class="max-w-4xl mx-auto border border-gray-200 rounded-lg shadow-sm">
+                <!-- Accordion Item 1 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>1. Evidence of Pakistani Complicity</span>
+                        <span class="icon"></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>India's primary justification linked the Pahalgam attack to the Pakistan-based Lashkar-e-Taiba (LeT) via its front group, The Resistance Front (TRF). Diplomats highlighted Pakistan's consistent history of obstructing investigations into previous major attacks, such as the 2008 Mumbai and 2016 Pathankot incidents, arguing that any calls for new joint probes were merely stalling tactics.</p>
+                    </div>
+                </div>
+                <!-- Accordion Item 2 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>2. Evidence of Successful Strikes</span>
+                        <span class="icon"></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>To prove the effectiveness of its military action, India provided satellite imagery to international media outlets. These images showed significant damage to targeted terrorist headquarters in Bahawalpur and Muridke. National Security Advisor Ajit Doval publicly challenged the press to produce any evidence of damage on the Indian side from Pakistan's retaliation, a challenge that went unanswered.</p>
+                    </div>
+                </div>
+                <!-- Accordion Item 3 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>3. Evidence of Failed Retaliation</span>
+                        <span class="icon"></span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>The Defence Ministry showcased physical proof of Pakistan's failed counter-attack. Debris recovered from Indian territory was identified as belonging to Chinese-made PL-15 missiles and Turkish-origin drones. This evidence demonstrated that India's indigenous air defense shield had successfully neutralized threats posed by advanced, foreign-supplied weaponry, underlining the technological gap between the two nations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reaction" class="mb-20">
+            <h2 class="section-title">THE REACTION</h2>
+            <p class="section-subtitle">
+                The global response was mixed and heavily influenced by pre-existing strategic interests. While terrorism was broadly condemned, the international community's primary focus was de-escalation rather than assigning blame. Select a country or organization below to view their specific reaction.
+            </p>
+            <div id="reaction-tabs" class="flex justify-center flex-wrap gap-3 mb-8">
+                <button class="tab-button active" data-tab="usa">🇺🇸 United States</button>
+                <button class="tab-button" data-tab="china">🇨🇳 China</button>
+                <button class="tab-button" data-tab="russia">🇷🇺 Russia</button>
+                <button class="tab-button" data-tab="un">🇺🇳 United Nations</button>
+                <button class="tab-button" data-tab="others">🌍 Other Nations</button>
+            </div>
+
+            <div id="reaction-content-container" class="max-w-4xl mx-auto card p-6 min-h-[250px] fade-in">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <section id="verdict" class="mb-20">
+            <h2 class="section-title">THE VERDICT</h2>
+            <p class="section-subtitle">
+                India's diplomatic offensive was a well-executed campaign that achieved some key objectives but fell short on others. It successfully projected a message of national unity and communicated a new, more assertive security doctrine. However, it also revealed the limits of converting military success into immediate diplomatic victories.
+            </p>
+            <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="card p-4 md:p-6">
+                     <h3 class="text-2xl font-bold text-center mb-4">Achievements</h3>
+                     <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-3 text-2xl">✔</span>
+                            <div>
+                                <h4 class="font-semibold">Projected National Unity</h4>
+                                <p class="text-gray-600 text-sm">The all-party delegations showcased a rare and powerful image of cross-party consensus on national security.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-3 text-2xl">✔</span>
+                            <div>
+                                <h4 class="font-semibold">Communicated New Doctrine</h4>
+                                <p class="text-gray-600 text-sm">Successfully signaled a paradigm shift from "strategic restraint" to "punitive deterrence" to the global community.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-3 text-2xl">✔</span>
+                            <div>
+                                <h4 class="font-semibold">Controlled the Narrative</h4>
+                                <p class="text-gray-600 text-sm">Largely succeeded in framing the conflict as a legitimate counter-terror operation, backed by evidence.</p>
+                            </div>
+                        </li>
+                     </ul>
+                </div>
+                 <div class="card p-4 md:p-6">
+                     <h3 class="text-2xl font-bold text-center mb-4">Shortcomings</h3>
+                     <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-3 text-2xl">✖</span>
+                            <div>
+                                <h4 class="font-semibold">Failure to Isolate Pakistan</h4>
+                                <p class="text-gray-600 text-sm">The primary goal was not achieved. No major power imposed sanctions, and Pakistan continued to receive international loans.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-3 text-2xl">✖</span>
+                            <div>
+                                <h4 class="font-semibold">Limited International Endorsement</h4>
+                                <p class="text-gray-600 text-sm">Few nations explicitly endorsed India's military action; most calls were for restraint, prioritizing de-escalation over blame.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-3 text-2xl">✖</span>
+                            <div>
+                                <h4 class="font-semibold">Erosion of Diplomatic Agency</h4>
+                                <p class="text-gray-600 text-sm">The US taking the lead in ceasefire announcements was perceived as undermining India's ability to control the escalatory ladder independently.</p>
+                            </div>
+                        </li>
+                     </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="distribution">
+             <h2 class="section-title">GEOGRAPHIC FOCUS</h2>
+              <p class="section-subtitle">
+                The diplomatic missions were strategically distributed across the globe to engage with key partners and power centers. The chart below visualizes the regional breakdown of the countries visited by the high-level delegations, illustrating the campaign's global reach.
+            </p>
+            <div class="chart-container">
+                <canvas id="delegationChart"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-4 text-center">
+            <p>&copy; 2025 Fictional Analysis Group. This interactive report is based on the provided source material for analytical purposes.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Accordion Logic
+            const accordionContainer = document.getElementById('accordion-container');
+            if (accordionContainer) {
+                const accordionItems = accordionContainer.querySelectorAll('.accordion-item');
+                accordionItems.forEach(item => {
+                    const header = item.querySelector('.accordion-header');
+                    header.addEventListener('click', () => {
+                        const currentlyActive = accordionContainer.querySelector('.accordion-item.active');
+                        if (currentlyActive && currentlyActive !== item) {
+                            currentlyActive.classList.remove('active');
+                            currentlyActive.querySelector('.accordion-content').style.maxHeight = 0;
+                        }
+
+                        item.classList.toggle('active');
+                        const content = item.querySelector('.accordion-content');
+                        if (item.classList.contains('active')) {
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                        } else {
+                            content.style.maxHeight = 0;
+                        }
+                    });
+                });
+            }
+
+            // Reaction Tabs Logic
+            const reactionData = {
+                'usa': `
+                    <h4 class="font-bold text-lg mb-2">🇺🇸 Cautious De-escalation</h4>
+                    <p>The US response was primarily focused on preventing further escalation. President Trump and Secretary of State Rubio called for restraint from both sides. However, Trump's claim to have personally mediated the ceasefire was controversial, seen by some as undermining India's diplomatic autonomy. While some US experts praised India's military professionalism, Washington's official stance remained cautious, re-engaging with Pakistan's military to ensure stability.</p>`,
+                'china': `
+                    <h4 class="font-bold text-lg mb-2">🇨🇳 Predictable Support for Pakistan</h4>
+                    <p>Beijing's reaction was aligned with its "all-weather" ally. The Chinese Foreign Ministry called India's strikes "regrettable" and urged calm, while deflecting questions about providing intelligence support to Pakistan. This denial was contradicted by French intelligence reports alleging that China ran a coordinated disinformation campaign to undermine the performance of the French-made Rafale jets used by India.</p>`,
+                'russia': `
+                    <h4 class="font-bold text-lg mb-2">🇷🇺 Concern and Solidarity</h4>
+                    <p>Moscow expressed "serious concern" and urged restraint. However, in meetings with the Indian delegation, Russian officials strongly condemned the Pahalgam terror attack and affirmed that Russia "stands in solidarity with India for elimination of terrorism in all its forms," signaling a more supportive stance than other major powers.</p>`,
+                'un': `
+                    <h4 class="font-bold text-lg mb-2">🇺🇳 Call for Restraint</h4>
+                    <p>UN Secretary-General Antonio Guterres called for "maximum military restraint," warning that the world could not afford a major conflict. The UN condemned the initial terror attack, but in what was seen as a diplomatic setback for India, Pakistan was later elected to chair the UNSC's Taliban sanctions committee, highlighting the complexities of UN politics.</p>`,
+                'others': `
+                    <h4 class="font-bold text-lg mb-2">🌍 Other Nations</h4>
+                    <p>The response from other nations was varied. <strong>Israel</strong> provided explicit support, affirming India's right to self-defense. The <strong>UAE</strong> and <strong>Japan</strong> called for restraint but acknowledged the need to counter terrorism. Most of India's immediate neighbors in South Asia remained silent on the operation, preferring not to take sides in the regional dispute.</p>`
+            };
+
+            const reactionTabs = document.querySelectorAll('#reaction-tabs .tab-button');
+            const reactionContent = document.getElementById('reaction-content-container');
+
+            function updateReactionContent(tabId) {
+                if (reactionData[tabId]) {
+                    reactionContent.innerHTML = reactionData[tabId];
+                    reactionContent.classList.remove('fade-in');
+                    void reactionContent.offsetWidth; 
+                    reactionContent.classList.add('fade-in');
+                }
+            }
+
+            reactionTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    reactionTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    updateReactionContent(tabId);
+                });
+            });
+
+            updateReactionContent('usa');
+
+            // Chart.js Logic
+            const ctx = document.getElementById('delegationChart').getContext('2d');
+            const delegationChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Europe', 'Middle East', 'Americas', 'Asia-Pacific', 'Africa'],
+                    datasets: [{
+                        label: 'Delegations by Region',
+                        data: [13, 7, 5, 4, 5],
+                        backgroundColor: [
+                            '#4299e1', // Europe (blue)
+                            '#f6ad55', // Middle East (orange)
+                            '#48bb78', // Americas (green)
+                            '#ed64a6', // Asia-Pacific (pink)
+                            '#a0aec0'  // Africa (gray)
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#2d3748',
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1a202c',
+                            titleFont: { size: 16 },
+                            bodyFont: { size: 14 },
+                            padding: 12
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>

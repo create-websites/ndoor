@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Sindoor: Air Superiority Scorecard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Brilliant Blues" - A professional and high-contrast theme using a deep blue primary, a cool gray secondary, and a vibrant cyan accent. -->
+    <!-- Application Structure Plan: The SPA is designed as a "Tale of the Tape" comparative analysis, rather than a linear report. A central navigation allows users to jump to dedicated sections for each key aircraft (Rafale, Su-30MKI, JF-17). Each section presents key stats and uses interactive tabs to separate 'Performance' from 'Combat Record'. The core interactive element is a dynamic bar chart comparing the aircraft across key metrics. This structure was chosen to facilitate direct comparison and make the dense technical data from the report more accessible and engaging for the user. -->
+    <!-- Visualization & Content Choices: 1. Aircraft Profiles (Data: Aircraft specifics) -> Goal: Inform/Compare -> Visualization: Hero cards with key stats and tabbed content panes. Justification: Organizes detailed information logically and allows for easy side-by-side mental comparison. Method: HTML/CSS/JS. 2. Comparative Metrics (Data: Performance specs from report table) -> Goal: Compare -> Visualization: Dynamic Bar Chart. Justification: Provides an immediate visual comparison of the aircraft's raw capabilities, making the performance differences clear. Method: Chart.js/Canvas. 3. Final Verdict (Data: Report summary) -> Goal: Inform -> Visualization: Styled summary card. Justification: Concludes the narrative with the report's key findings. Method: HTML/CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* A very light, cool gray */
+        }
+        .font-teko {
+            font-family: 'Teko', sans-serif;
+        }
+        .tab-button.active {
+            background-color: #0d9488; /* teal-600 */
+            color: #ffffff;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            max-height: 50vh;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white shadow-xl">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <h1 class="font-teko text-7xl md:text-8xl leading-none">AIR SUPERIORITY SCORECARD</h1>
+            <p class="mt-2 text-lg md:text-xl max-w-3xl mx-auto text-slate-300">An interactive analysis of the fighter aircraft that defined the aerial conflict during Operation Sindoor, based on combat performance and technical specifications.</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 bg-slate-900/75 backdrop-blur-sm z-10 shadow-lg">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center items-center h-16 space-x-4 md:space-x-8">
+                <a href="#rafale" class="font-teko text-2xl text-white hover:text-cyan-400 transition-colors duration-300">Rafale</a>
+                <span class="text-slate-500">|</span>
+                <a href="#su30mki" class="font-teko text-2xl text-white hover:text-cyan-400 transition-colors duration-300">Su-30MKI</a>
+                 <span class="text-slate-500">|</span>
+                <a href="#jf17" class="font-teko text-2xl text-white hover:text-cyan-400 transition-colors duration-300">JF-17</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-12 px-6">
+        
+        <!-- Introduction -->
+        <section class="text-center max-w-4xl mx-auto mb-16">
+            <h2 class="font-teko text-5xl text-slate-800">THE AERIAL BATTLEFIELD</h2>
+            <p class="mt-4 text-lg text-slate-600">The skies over the subcontinent became the decisive arena in May 2025. The Indian Air Force, with its diverse multi-role fleet, faced off against the Pakistan Air Force, which relied heavily on its co-developed JF-17 Thunder. The outcome revealed a stark technological and strategic disparity. Explore the key platforms below.</p>
+        </section>
+
+        <!-- Aircraft Section Template -->
+        <div class="space-y-16">
+            <!-- IAF Rafale -->
+            <section id="rafale" class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-cyan-500">
+                <div class="grid md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-1 text-center">
+                        <h3 class="font-teko text-6xl text-cyan-600">Dassault Rafale</h3>
+                        <p class="font-semibold text-slate-500">IAF's Tip of the Spear</p>
+                        <div class="mt-4 space-y-2 text-left">
+                            <p><strong class="text-slate-700">Generation:</strong> 4.5</p>
+                            <p><strong class="text-slate-700">Primary Role:</strong> Deep-Penetration Strike</p>
+                            <p><strong class="text-slate-700">Key Weapon:</strong> SCALP Cruise Missile</p>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="text-slate-600 mb-4">The 4.5-generation Dassault Rafale was the IAF's premier strike aircraft, tasked with the most critical deep-penetration missions. Its combination of advanced sensors, electronic warfare suites, and low-observability features proved decisive.</p>
+                        <div class="text-sm font-semibold text-center text-slate-500 border-b border-slate-200">
+                           <button data-target="rafale-perf" class="tab-button active px-4 py-2">Role & Performance</button>
+                           <button data-target="rafale-cont" class="tab-button px-4 py-2">Combat Record</button>
+                        </div>
+                        <div class="mt-4 text-slate-600">
+                            <div id="rafale-perf" class="tab-content">
+                                Its advanced SPECTRA electronic warfare suite and low-observability features allowed it to bypass and suppress Pakistan's air defenses. The aircraft successfully launched French-origin SCALP cruise missiles from standoff ranges, hitting targets with pinpoint accuracy.
+                            </div>
+                             <div id="rafale-cont" class="tab-content hidden">
+                                Pakistan claimed to have shot down three Rafales, but these claims were unsubstantiated. French intelligence later reported a Chinese disinformation campaign to undermine the Rafale's reputation following its successful performance. One loss was attributed to a technical failure, not enemy action.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IAF Su-30MKI -->
+            <section id="su30mki" class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-blue-800">
+                 <div class="grid md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-1 text-center">
+                        <h3 class="font-teko text-6xl text-blue-800">Sukhoi Su-30MKI</h3>
+                        <p class="font-semibold text-slate-500">IAF's Air Dominance Workhorse</p>
+                        <div class="mt-4 space-y-2 text-left">
+                            <p><strong class="text-slate-700">Generation:</strong> 4+</p>
+                            <p><strong class="text-slate-700">Primary Role:</strong> Air Superiority & Strike</p>
+                            <p><strong class="text-slate-700">Key Weapon:</strong> BrahMos-A Cruise Missile</p>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="text-slate-600 mb-4">The Su-30MKI, the backbone of the IAF, played a crucial multi-role function, demonstrating both survivability and potent offensive capability, overwhelming Pakistani defenses with its firepower and maneuverability.</p>
+                        <div class="text-sm font-semibold text-center text-slate-500 border-b border-slate-200">
+                           <button data-target="su30-perf" class="tab-button active px-4 py-2">Role & Performance</button>
+                           <button data-target="su30-cont" class="tab-button px-4 py-2">Combat Record</button>
+                        </div>
+                        <div class="mt-4 text-slate-600">
+                            <div id="su30-perf" class="tab-content">
+                                Despite its large radar signature, its super-maneuverability and advanced EW suite allowed it to evade Chinese-made missiles. Its most significant contribution was launching BrahMos-A supersonic cruise missiles, which reportedly destroyed three strategic Pakistani airbases.
+                            </div>
+                             <div id="su30-cont" class="tab-content hidden">
+                                The Su-30MKI fleet effectively screened IAF strike packages and deterred the PAF. Armed with the indigenous Astra Mk-II BVR missile, it reportedly shot down at least one Pakistani JF-17 fighter during the conflict.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAF JF-17 -->
+             <section id="jf17" class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-red-600">
+                 <div class="grid md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-1 text-center">
+                        <h3 class="font-teko text-6xl text-red-700">PAC/CAC JF-17</h3>
+                        <p class="font-semibold text-slate-500">PAF's Contested Champion</p>
+                         <div class="mt-4 space-y-2 text-left">
+                            <p><strong class="text-slate-700">Generation:</strong> 4</p>
+                            <p><strong class="text-slate-700">Primary Role:</strong> Multi-Role Fighter</p>
+                            <p><strong class="text-slate-700">Key Weapon:</strong> PL-15E BVR Missile</p>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="text-slate-600 mb-4">The JF-17 Thunder, co-developed by China and Pakistan, is the workhorse of the PAF. The conflict served as its first major test against a modern, integrated adversary, and it was found wanting.</p>
+                        <div class="text-sm font-semibold text-center text-slate-500 border-b border-slate-200">
+                           <button data-target="jf17-perf" class="tab-button active px-4 py-2">Role & Performance</button>
+                           <button data-target="jf17-cont" class="tab-button px-4 py-2">Combat Record</button>
+                        </div>
+                        <div class="mt-4 text-slate-600">
+                            <div id="jf17-perf" class="tab-content">
+                                Deployed in both air-to-air and air-to-ground roles, the JF-17 was unable to prevent IAF deep strikes or meaningfully challenge for air superiority. This highlighted its limitations against technologically superior opponents employing advanced EW and better-integrated systems.
+                            </div>
+                             <div id="jf17-cont" class="tab-content hidden">
+                                The PAF claimed several victories for the JF-17, including downing a MiG-29, but these remain unconfirmed. Conversely, reports confirmed that at least two JF-17s were shot down by the IAF—one by a Rafale's Meteor missile and another by a Su-30MKI's Astra missile.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Comparative Chart -->
+        <section class="my-16">
+             <h2 class="font-teko text-5xl text-center text-slate-800 mb-8">TALE OF THE TAPE: AIRCRAFT SPECIFICATIONS</h2>
+             <div class="bg-white p-8 rounded-xl shadow-lg">
+                <p class="text-center text-slate-600 mb-6">This chart visually compares the key performance metrics of the primary fighters used in Operation Sindoor, based on the data from the conflict analysis report. Use the dropdown to switch between different metrics.</p>
+                <div class="text-center mb-4">
+                    <select id="metric-selector" class="p-2 rounded-md border-slate-300 border">
+                        <option value="range" selected>Max Combat Range (km)</option>
+                        <option value="speed">Max Speed (Mach)</option>
+                        <option value="payload">Max Weapon Payload (kg)</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+             </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-sm">
+            <p>This interactive application is based on the report "Air Power in Operation Sindoor: A Comparative Analysis" for informational purposes.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab functionality
+            const allTabButtons = document.querySelectorAll('.tab-button');
+            allTabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+                    const parentSection = button.closest('section');
+                    
+                    // Update buttons in the same section
+                    parentSection.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Update content in the same section
+                    parentSection.querySelectorAll('.tab-content').forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Chart functionality
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            let comparisonChart;
+
+            const aircraftData = {
+                labels: ['Rafale', 'Su-30MKI', 'JF-17 Thunder'],
+                datasets: {
+                    range: {
+                        label: 'Max Combat Range (km)',
+                        data: [3700, 3000, 1200],
+                        backgroundColor: ['#06b6d4', '#2563eb', '#dc2626'],
+                    },
+                    speed: {
+                        label: 'Max Speed (Mach)',
+                        data: [1.8, 2.25, 1.6],
+                        backgroundColor: ['#06b6d4', '#2563eb', '#dc2626'],
+                    },
+                    payload: {
+                        label: 'Max Weapon Payload (kg)',
+                        data: [9500, 8000, 3700],
+                        backgroundColor: ['#06b6d4', '#2563eb', '#dc2626'],
+                    }
+                }
+            };
+            
+            function createOrUpdateChart(metric) {
+                if (comparisonChart) {
+                    comparisonChart.destroy();
+                }
+                comparisonChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: aircraftData.labels,
+                        datasets: [aircraftData.datasets[metric]]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: aircraftData.datasets[metric].label,
+                                font: {
+                                    size: 16
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: '#e2e8f0'
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const metricSelector = document.getElementById('metric-selector');
+            metricSelector.addEventListener('change', (e) => {
+                createOrUpdateChart(e.target.value);
+            });
+
+            // Initial chart render
+            createOrUpdateChart('range');
+        });
+    </script>
+
+</body>
+</html>
